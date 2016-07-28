@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Install all the things!
+
+set -e
+
+cd "$(dirname $0)"/..
+
+# Source: https://github.com/nicknisi/dotfiles/blob/master/install/brew.sh
+if test ! $(which brew); then
+  echo "Installing Homebrew..."
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+# Source: https://github.com/holman/dotfiles/blob/master/script/install
+# find the installers and run them iteratively
+find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
