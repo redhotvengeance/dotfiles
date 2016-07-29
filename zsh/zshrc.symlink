@@ -1,0 +1,48 @@
+# Sources: https://github.com/nicknisi/dotfiles/blob/master/zsh/zshrc.symlink and https://github.com/holman/dotfiles/blob/master/zsh/zshrc.symlink
+
+export DOTFILES=$HOME/.dotfiles
+
+# display how long all tasks over 10 seconds take
+export REPORTTIME=10
+
+# all of our zsh files
+typeset -U config_files
+config_files=($DOTFILES/**/*.zsh)
+
+# load the path files
+for file in ${(M)config_files:#*/path.zsh}
+do
+  source $file
+done
+
+# load everything but the path and completion files
+for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
+do
+  source $file
+done
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit
+
+# load every completion after autocomplete loads
+for file in ${(M)config_files:#*/completion.zsh}
+do
+  source $file
+done
+
+unset config_files
+
+if [ -z ${DOTFILES_LOADED+x} ]; then
+  # Access zsh online help
+  unalias run-help
+  autoload run-help
+  HELPDIR=/usr/local/share/zsh/help
+
+  # install zsh-syntax-highlighting
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  # install zsh autosuggestions
+  source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+export DOTFILES_LOADED=1
