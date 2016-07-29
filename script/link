@@ -6,7 +6,10 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-DOTFILES=$(pwd -P)
+DOTFILES=$HOME/.dotfiles
+
+echo "Creating symlink for dotfiles"
+ln -sf $(pwd) $DOTFILES
 
 # Source: https://github.com/nicknisi/dotfiles/blob/master/install/link.sh
 for file in $( find -H "$DOTFILES" -maxdepth 3 -name '*.symlink' ) ; do
