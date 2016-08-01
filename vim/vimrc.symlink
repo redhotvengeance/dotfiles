@@ -1,0 +1,40 @@
+set nocompatible " no need to be compatible with vi
+set encoding=utf8 " always
+set ttyfast " faster is better
+set laststatus=2 " always show the status line
+set autoread " detect when a file is changed
+set wildmenu " command line completion
+set scrolloff=3 " scroll cursor offset
+set clipboard=unnamed " copy/pasta is better together
+set backspace=indent,eol,start " backspacing is a thing
+set number " line numbers are kinda important
+set relativenumber " counting is slow
+
+" spaces spaces spaces
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set shiftround
+
+" indenting and stuff
+set autoindent
+set smartindent
+
+set wrap
+set wrapmargin=8
+set linebreak
+set showbreak=↳\ "
+set magic " regex is useful
+set showmatch " show matching braces
+set mat=2 " how many tenths of a second to blink
+set ignorecase " case insensitive searching
+set smartcase " case-sensitive if expresson contains a capital letter
+set hlsearch " use search highlighting
+set incsearch " set incremental search, like modern browsers
+set updatetime=250 " minimize update delay
+set t_Co=256 " tell vim that the terminal supports 256 colors
+
+so ~/.dotfiles/vim/functions.vim
+so ~/.dotfiles/vim/mappings.vim
+so ~/.dotfiles/vim/plugins.vim
