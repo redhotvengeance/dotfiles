@@ -1,4 +1,4 @@
-if test ! $(which mvim); then
-  echo "Installing MacVim..."
-  brew install macvim --with-override-system-vim
+if test ! $(which nvim); then
+  echo "Installing neovim..."
+  brew install neovim/neovim/neovim
 fi

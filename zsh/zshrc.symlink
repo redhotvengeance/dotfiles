@@ -5,6 +5,9 @@ export DOTFILES=$HOME/.dotfiles
 # display how long all tasks over 10 seconds take
 export REPORTTIME=10
 
+# get c-h working in nvim
+export TERMINFO="$HOME/.terminfo"
+
 # all of our zsh files
 typeset -U config_files
 config_files=($DOTFILES/**/*.zsh)
