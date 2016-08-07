@@ -3,6 +3,9 @@
 # reload zsh config
 alias reload!='source ~/.zshrc'
 
+# let's use nvim instead
+alias vim='nvim'
+
 # Filesystem aliases
 alias ..='cd ..'
 
