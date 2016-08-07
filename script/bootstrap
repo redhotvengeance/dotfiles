@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Strap 'dem boots
+
+set -e
+
+cd "$(dirname $0)"/..
+
+echo "Installing things..."
+./script/install
+
+echo "Linking things..."
+./script/link
+
+echo "Updating Mac Apps..."
+./macos/update.sh
+
+echo "Setting Mac defaults..."
+./macos/defaults.sh
