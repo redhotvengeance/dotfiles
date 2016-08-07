@@ -9,7 +9,10 @@ cd "$(dirname "$0")/.."
 DOTFILES=$HOME/.dotfiles
 
 echo "Creating symlink for dotfiles"
-ln -sf $(pwd) $DOTFILES
+if [[ ! -L "$DOTFILES" && ! -d "$DOTFILES" ]]
+then
+  ln -s "$(pwd)" $DOTFILES
+fi
 
 # Source: https://github.com/nicknisi/dotfiles/blob/master/install/link.sh
 for file in $( find -H "$DOTFILES" -maxdepth 3 -name '*.symlink' ) ; do
