@@ -1,6 +1,8 @@
 if test ! $(which zsh); then
   echo "Installing zsh..."
   brew install zsh
+  command -v zsh | sudo tee -a /etc/shells
+  chsh -s $(which zsh)
 fi
 
 if test ! $(which zsh-syntax-highlighting); then
