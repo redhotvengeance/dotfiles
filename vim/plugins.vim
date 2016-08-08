@@ -5,6 +5,12 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
+" Install python support for neovim
+silent !pip list | grep 'neovim'
+if v:shell_error == 1
+  silent !pip install neovim
+endif
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'kien/ctrlp.vim'
@@ -13,6 +19,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'Valloric/YouCompleteMe'
 
 " Python
 Plug 'tmhedberg/SimpylFold'
