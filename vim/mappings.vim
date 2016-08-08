@@ -18,3 +18,6 @@ map <C-l> :call WinMove('l')<cr>
 
 " disable search highlights
 nnoremap <silent> <CR> :nohlsearch<CR><CR>
+
+" fold with spacebar
+nnoremap <space> za

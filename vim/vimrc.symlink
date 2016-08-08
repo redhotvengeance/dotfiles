@@ -21,6 +21,10 @@ set shiftround
 set autoindent
 set smartindent
 
+" let's fold
+set foldmethod=indent
+set foldlevel=99
+
 set wrap
 set wrapmargin=8
 set linebreak
