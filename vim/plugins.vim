@@ -24,6 +24,7 @@ call plug#end()
 
 " NERDTree
 let NERDTreeShowHidden=1 " show hidden files in NERDTree
+let NERDTreeIgnore=['.DS_Store', '\.pyc$', '\~$'] " ignore some files
 " Toggle NERDTree
 nmap <silent> <leader>k :NERDTreeToggle<cr>
 " expand to the path of the file in the current buffer
