@@ -40,9 +40,9 @@ let NERDTreeIgnore=['.DS_Store', '\.pyc$', '\~$'] " ignore some files
 let g:NERDTreeMapJumpNextSibling = '<Nop>'
 let g:NERDTreeMapJumpPrevSibling = '<Nop>'
 " Toggle NERDTree
-nmap <silent> <leader>k :NERDTreeToggle<cr>
+nmap <silent> <leader>n :NERDTreeFocus<cr>
 " expand to the path of the file in the current buffer
-nmap <silent> <leader>y :NERDTreeFind<cr>
+nmap <silent> <leader>m :NERDTreeClose<cr>
 
 " CtrlP
 nmap <silent> <leader>r :CtrlPBuffer<cr>
