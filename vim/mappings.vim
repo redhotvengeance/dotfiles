@@ -25,3 +25,7 @@ vnoremap <S-Tab> <gV
 
 " split horizontally with h
 nnoremap <C-w>h <C-w>s 
+
+" fly between buffers:
+" http://of-vim-and-vigor.blogspot.ro/p/vim-vigor-comic.html
+nnoremap <leader>l :ls<CR>:b<space>
