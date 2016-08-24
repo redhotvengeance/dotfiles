@@ -15,3 +15,10 @@ nnoremap <silent> <CR> :nohlsearch<CR><CR>
 
 " fold with spacebar
 nnoremap <space> za
+
+" use tab for indenting
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gV
+vnoremap <S-Tab> <gV
