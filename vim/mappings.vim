@@ -22,3 +22,6 @@ nnoremap <S-Tab> <<_
 inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gV
 vnoremap <S-Tab> <gV
+
+" split horizontally with h
+nnoremap <C-w>h <C-w>s 
