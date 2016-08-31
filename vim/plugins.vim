@@ -22,6 +22,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'Valloric/YouCompleteMe'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'mileszs/ack.vim'
 
 " Python
 Plug 'tmhedberg/SimpylFold'
@@ -55,3 +56,7 @@ let g:ctrlp_custom_ignore = {
 
 " vim-gitgutter
 let g:gitgutter_sign_column_always = 1
+
+" ack
+" let's use ag
+let g:ackprg = 'ag --vimgrep'
