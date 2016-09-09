@@ -28,6 +28,9 @@ Plug 'mileszs/ack.vim'
 Plug 'tmhedberg/SimpylFold'
 Plug 'vim-scripts/indentpython.vim'
 
+" JavaScript
+Plug 'kchmck/vim-coffee-script'
+
 call plug#end()
 
 "
