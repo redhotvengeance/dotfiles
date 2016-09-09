@@ -29,3 +29,8 @@ nnoremap <C-w>h <C-w>s
 " fly between buffers:
 " http://of-vim-and-vigor.blogspot.ro/p/vim-vigor-comic.html
 nnoremap <leader>l :ls<CR>:b<space>
+
+" prepend leader to copy to null register
+" http://unix.stackexchange.com/a/88755
+nnoremap <leader>c "_c
+nnoremap <leader>d "_d
