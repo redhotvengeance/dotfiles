@@ -31,6 +31,9 @@ Plug 'vim-scripts/indentpython.vim'
 " JavaScript
 Plug 'kchmck/vim-coffee-script'
 
+" HTML
+Plug 'digitaltoad/vim-pug'
+
 call plug#end()
 
 "
