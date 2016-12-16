@@ -34,3 +34,6 @@ nnoremap <leader>l :ls<CR>:b<space>
 " http://unix.stackexchange.com/a/88755
 nnoremap <leader>c "_c
 nnoremap <leader>d "_d
+
+" quick close buffer
+cmap qq bd
