@@ -40,6 +40,9 @@ set incsearch " set incremental search, like modern browsers
 set updatetime=250 " minimize update delay
 set t_Co=256 " tell vim that the terminal supports 256 colors
 
+" switch to cursor in insert mode
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
 " show textwidth guide
 execute "set colorcolumn=" . join(map(range(2,259), '"+" . v:val'), ',')
 highlight ColorColumn ctermbg=234 guibg=#1c1c1c
