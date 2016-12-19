@@ -49,3 +49,6 @@ highlight ColorColumn ctermbg=234 guibg=#1c1c1c
 
 so ~/.dotfiles/vim/mappings.vim
 so ~/.dotfiles/vim/plugins.vim
+
+syntax on
+colorscheme base16-default-dark

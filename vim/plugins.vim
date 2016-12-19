@@ -13,6 +13,9 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" color scheme
+Plug 'chriskempson/base16-vim'
+
 Plug 'kien/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
