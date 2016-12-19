@@ -336,7 +336,7 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>399 370 606 456 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>336 130 796 473 0 0 1440 877 </string>
+	<string>336 222 796 473 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 500 570 377 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
@@ -1083,6 +1083,8 @@
 	</dict>
 	<key>PrefsCustomFolder</key>
 	<string>/Users/ianlollar/Documents/projects/dotfiles/iterm2</string>
+	<key>PromptOnQuit</key>
+	<false/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
