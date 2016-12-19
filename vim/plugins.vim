@@ -69,3 +69,9 @@ let g:gitgutter_sign_column_always = 1
 " ack
 " let's use ag
 let g:ackprg = 'ag --vimgrep'
+
+" vim-airline
+let g:airline_powerline_fonts=1
+let g:airline_theme='base16'
+let g:airline#extensions#tabline#enabled = 1 " enable tabline
+let g:airline#extensions#tabline#buffer_min_count = 2 " only show tabline if more than 1 buffer open
