@@ -16,3 +16,7 @@
 	show = diff-so-fancy | less --tabs=1,5 -RFX
 [http]
 	cookiefile = /Users/ianlollar/.gitcookies
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
