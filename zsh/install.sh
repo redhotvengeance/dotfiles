@@ -1,4 +1,5 @@
-if test ! $(which zsh); then
+if [ $(echo $SHELL) != "/usr/local/bin/zsh" ] 
+then
   echo "Installing zsh..."
   brew install zsh
 
