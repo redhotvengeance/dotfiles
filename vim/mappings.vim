@@ -37,3 +37,11 @@ nnoremap <leader>d "_d
 
 " quick close buffer
 cmap qq bd
+
+" fix C-h navigation bug in neovim
+" https://github.com/christoomey/vim-tmux-navigator/issues/71#issuecomment-202422963
+if has('nvim')
+    nmap <BS> :<C-u>TmuxNavigateLeft<CR>
+else
+    nmap <C-h> <C-w>h
+endif
