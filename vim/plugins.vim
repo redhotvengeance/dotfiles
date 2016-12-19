@@ -26,6 +26,7 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'mileszs/ack.vim'
+Plug 'sheerun/vim-polyglot'
 
 " Python
 Plug 'tmhedberg/SimpylFold'
