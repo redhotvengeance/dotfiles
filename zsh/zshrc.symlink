@@ -18,6 +18,9 @@ do
   source $file
 done
 
+# add dotfiles bin to the path
+export PATH=$DOTFILES/bin:$PATH
+
 # load everything but the path and completion files
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
 do
