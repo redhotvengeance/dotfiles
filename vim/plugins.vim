@@ -27,6 +27,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'mileszs/ack.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'ntpeters/vim-better-whitespace'
 
 " Python
 Plug 'tmhedberg/SimpylFold'
@@ -76,3 +77,6 @@ let g:airline_powerline_fonts=1
 let g:airline_theme='base16'
 let g:airline#extensions#tabline#enabled = 1 " enable tabline
 let g:airline#extensions#tabline#buffer_min_count = 2 " only show tabline if more than 1 buffer open
+
+" vim-better-whitespace
+autocmd BufEnter * EnableStripWhitespaceOnSave
