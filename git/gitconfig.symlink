@@ -1,10 +1,12 @@
 [user]
 	name = Ian Lollar
-	email = rhv@redhotvengeance.com
+	email = ian@lollar.email
 [core]
+	editor = nvim
 	excludesfile = ~/.gitignore_global
 [push]
 	default = simple
+	followTags = true
 [color]
 	ui = auto
 [filter "lfs"]
@@ -15,7 +17,7 @@
 	diff = diff-so-fancy | less --tabs=1,5 -RFX
 	show = diff-so-fancy | less --tabs=1,5 -RFX
 [http]
-	cookiefile = /Users/ianlollar/.gitcookies
+	cookiefile = ~/.gitcookies
 [filter "media"]
 	required = true
 	clean = git media clean %f
