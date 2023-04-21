@@ -26,7 +26,6 @@ vim.keymap.set("n", "Q", "<nop>")
 -- quick close buffer
 vim.keymap.set("c", "qq", "bd")
 
-vim.keymap.set("n", "<leader>b", [[:ls<CR>:b<space>]], { desc = "Choose open buffer" })
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete into the void" })
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format file" })
 vim.keymap.set("n", "<leader>h", [[:nohlsearch<CR>]], { desc = "Clear search highlights" })

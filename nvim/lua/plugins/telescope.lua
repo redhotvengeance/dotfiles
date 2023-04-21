@@ -3,19 +3,19 @@ return {
     "nvim-telescope/telescope.nvim",
     -- install fzf native
     dependencies = {
-	    "nvim-lua/plenary.nvim",
-	    {
-		    "nvim-telescope/telescope-fzf-native.nvim",
-		    build = "make",
-		    config = function()
-			    require("telescope").load_extension("fzf")
-		    end,
-	    },
+      "nvim-lua/plenary.nvim",
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        config = function()
+          require("telescope").load_extension("fzf")
+        end,
+      },
     },
     keys = {
-      -- change a keymap
+      -- browse file
       { "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "Find files" },
-      -- add a keymap to browse plugin files
+      -- browse plugin files
       {
         "<leader>fp",
         function()
@@ -23,22 +23,21 @@ return {
         end,
         desc = "Find plugin file",
       },
-      -- This is using b because it used to be fzf's :Buffers
+      -- browse recent files
       {
         "<leader>fo",
         "<cmd>Telescope oldfiles<cr>",
         desc = "Recent",
       },
+      -- browse open buffers
+      {
+        "<leader>b",
+        "<cmd>Telescope buffers<cr>",
+        desc = "Open buffers",
+        nowait = true,
+      },
     },
-    -- change some options
     opts = {
-      --   defaults = {
-      --     layout_strategy = "horizontal",
-      --     layout_config = { prompt_position = "top" },
-      --     sorting_strategy = "ascending",
-      --     winblend = 0,
-      --   },
-      -- add some mappings
       defaults = {
         mappings = {
           i = {
@@ -53,15 +52,4 @@ return {
       },
     },
   },
-  -- add telescope-fzf-native
-  -- {
-  --   "telescope.nvim",
-  --   dependencies = {
-  --     "nvim-telescope/telescope-fzf-native.nvim",
-  --     build = "make",
-  --     config = function()
-  --       require("telescope").load_extension("fzf")
-  --     end,
-  --   },
-  -- },
 }
