@@ -3,6 +3,7 @@
   "alpha-nvim": { "branch": "main", "commit": "87c204040e3f5d4c1c95067b35905d8f8a2f2545" },
   "catppuccin": { "branch": "main", "commit": "939be5f7fcbc15abeaad9214bb253a4551f6f6e6" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "0e6b2ed705ddcff9738ec4ea838141654f12eeef" },
+  "gitsigns.nvim": { "branch": "main", "commit": "7d5a2132a54e1158990074b536de5c7d773126f5" },
   "harpoon": { "branch": "master", "commit": "f7040fd0c44e7a4010369136547de5604b9c22a1" },
   "lazy.nvim": { "branch": "main", "commit": "5c89dc52f42e5058a46b0912d7d9042f564e44e0" },
   "lsp-zero.nvim": { "branch": "v2.x", "commit": "28a9c8f6cdf562d41171349e874afa3b7bc02097" },
