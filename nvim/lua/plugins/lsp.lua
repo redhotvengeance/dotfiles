@@ -1,32 +1,42 @@
 return {
-	'VonHeikemen/lsp-zero.nvim',
-	branch = 'v2.x',
-	dependencies = {
-		-- LSP Support
-		{'neovim/nvim-lspconfig'},             -- Required
-		{                                      -- Optional
-			'williamboman/mason.nvim',
-			build = function()
-				pcall(vim.cmd, 'MasonUpdate')
-			end,
-		},
-		{'williamboman/mason-lspconfig.nvim'}, -- Optional
+  'VonHeikemen/lsp-zero.nvim',
+  branch = 'v2.x',
+  dependencies = {
+    -- lsp support
+    { 'neovim/nvim-lspconfig' }, -- required
+    -- optional
+    {
+      'williamboman/mason.nvim',
+      build = function()
+        pcall(vim.cmd, 'MasonUpdate')
+      end,
+    },
+    { 'williamboman/mason-lspconfig.nvim' }, -- optional
 
-		-- Autocompletion
-		{'hrsh7th/nvim-cmp'},     -- Required
-		{'hrsh7th/cmp-nvim-lsp'}, -- Required
-		{'L3MON4D3/LuaSnip'},     -- Required
-	},
-	config = function()
-		local lsp = require('lsp-zero').preset({})
+    -- autocompletion
+    { 'hrsh7th/nvim-cmp' },     -- required
+    { 'hrsh7th/cmp-nvim-lsp' }, -- required
+    { 'L3MON4D3/LuaSnip' },     -- required
+  },
+  config = function()
+    local lsp = require('lsp-zero').preset({})
 
-		lsp.on_attach(function(client, bufnr)
-			lsp.default_keymaps({buffer = bufnr})
-		end)
+    lsp.on_attach(function(_, bufnr)
+      lsp.default_keymaps({ buffer = bufnr })
+    end)
 
-		-- (Optional) Configure lua language server for neovim
-		require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+    require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
-		lsp.setup()
-	end,
+    lsp.setup()
+
+    local cmp = require('cmp')
+    local cmp_action = require('lsp-zero').cmp_action()
+
+    cmp.setup({
+      mapping = {
+        ['<Tab>'] = cmp_action.luasnip_supertab(),
+        ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+      }
+    })
+  end,
 }
