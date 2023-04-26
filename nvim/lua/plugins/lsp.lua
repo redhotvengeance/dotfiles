@@ -1,42 +1,36 @@
 return {
-  'VonHeikemen/lsp-zero.nvim',
-  branch = 'v2.x',
-  dependencies = {
-    -- lsp support
-    { 'neovim/nvim-lspconfig' }, -- required
-    -- optional
-    {
-      'williamboman/mason.nvim',
-      build = function()
-        pcall(vim.cmd, 'MasonUpdate')
-      end,
-    },
-    { 'williamboman/mason-lspconfig.nvim' }, -- optional
-
-    -- autocompletion
-    { 'hrsh7th/nvim-cmp' },     -- required
-    { 'hrsh7th/cmp-nvim-lsp' }, -- required
-    { 'L3MON4D3/LuaSnip' },     -- required
+  {
+    "VonHeikemen/lsp-zero.nvim",
+    branch = "v2.x",
+    lazy = true,
+    config = function()
+      require("lsp-zero.settings").preset({})
+    end
   },
-  config = function()
-    local lsp = require('lsp-zero').preset({})
+  {
+    "neovim/nvim-lspconfig",
+    cmd = "LspInfo",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "williamboman/mason-lspconfig.nvim" },
+      {
+        "williamboman/mason.nvim",
+        build = function()
+          pcall(vim.cmd, "MasonUpdate")
+        end,
+      },
+    },
+    config = function()
+      local lsp = require("lsp-zero")
 
-    lsp.on_attach(function(_, bufnr)
-      lsp.default_keymaps({ buffer = bufnr })
-    end)
+      lsp.on_attach(function(_, bufnr)
+        lsp.default_keymaps({ buffer = bufnr })
+      end)
 
-    require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+      require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
 
-    lsp.setup()
-
-    local cmp = require('cmp')
-    local cmp_action = require('lsp-zero').cmp_action()
-
-    cmp.setup({
-      mapping = {
-        ['<Tab>'] = cmp_action.luasnip_supertab(),
-        ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
-      }
-    })
-  end,
+      lsp.setup()
+    end
+  },
 }
