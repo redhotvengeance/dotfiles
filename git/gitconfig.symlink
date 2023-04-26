@@ -4,18 +4,31 @@
 [core]
 	editor = nvim
 	excludesfile = ~/.gitignore_global
+	pager = "if [ ! -z \"$(which diff-so-fancy)\" ]; then diff-so-fancy | less --tabs=4 -RFX; else less; fi"
 [push]
 	default = simple
 	followTags = true
+[interactive]
+	diffFilter = "if [ ! -z \"$(which diff-so-fancy)\" ]; then diff-so-fancy --patch; else less; fi"
 [color]
-	ui = auto
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = 146 bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
 [filter "lfs"]
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f
 	required = true
-[pager]
-	diff = diff-so-fancy | less --tabs=1,5 -RFX
-	show = diff-so-fancy | less --tabs=1,5 -RFX
 [http]
 	cookiefile = ~/.gitcookies
 [filter "media"]
