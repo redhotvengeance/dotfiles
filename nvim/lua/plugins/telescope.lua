@@ -36,6 +36,13 @@ return {
         desc = "Open buffers",
         nowait = true,
       },
+      {
+        "<leader>fs",
+        function()
+          require("telescope.builtin").grep_string({ search = vim.fn.input("Grep > ") })
+        end,
+        desc = "Grep",
+      },
     },
     opts = {
       defaults = {
