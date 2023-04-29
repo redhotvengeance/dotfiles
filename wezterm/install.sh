@@ -1,4 +1,4 @@
 if test "$(uname)" = "Darwin"
 then
-  brew cask install wezterm > /dev/null 2>&1
+  brew install --cask wezterm > /dev/null 2>&1
 fi
