@@ -44,5 +44,10 @@ bind-key -n C-k if-shell "$is_vim" "send-keys C-k"  "select-pane -U"
 bind-key -n C-l if-shell "$is_vim" "send-keys C-l"  "select-pane -R"
 bind-key -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 
+# check for and load local tmux.conf
+if-shell '[ -e ~/.tmux.conf.local ]' {
+  source ~/.tmux.conf.local
+}
+
 source ~/.dotfiles/tmux/bindings.sh
 source ~/.dotfiles/tmux/theme.sh

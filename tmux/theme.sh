@@ -48,3 +48,8 @@ tm_session_name="#[fg=$tm_color_feature,bold]#S"
 
 set -g status-left $tm_session_name'  '
 set -g status-right $tm_spotify'  '$tm_battery'  '$tm_date'  '$tm_host
+
+# check for and load local theme.sh
+if-shell '[ -e ~/.dotfiles/tmux/theme.sh.local ]' {
+  source ~/.dotfiles/tmux/theme.sh.local
+}

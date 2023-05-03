@@ -51,4 +51,7 @@ if [ -z ${DOTFILES_LOADED+x} ]; then
   source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
+# check for and load local zshrc
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
 export DOTFILES_LOADED=1

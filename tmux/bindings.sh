@@ -52,3 +52,8 @@ bind-key -t vi-copy Enter copy-pipe "pbcopy"
 bind-key -t vi-copy WheelUpPane scroll-up
 bind-key -t vi-copy WheelDownPane scroll-down
 bind-key -t vi-copy MouseDragEnd1Pane copy-pipe "pbcopy"
+
+# check for and load local bindings.sh
+if-shell '[ -e ~/.dotfiles/tmux/bindings.sh.local ]' {
+  source ~/.dotfiles/tmux/bindings.sh.local
+}
