@@ -26,6 +26,7 @@ vim.keymap.set("n", "Q", "<nop>")
 -- quick close buffer
 vim.keymap.set("c", "qq", "bd")
 
+vim.keymap.set({ "n", "v" }, "<leader>c", [["_c]], { desc = "Change into the void" })
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete into the void" })
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format file" })
 vim.keymap.set("n", "<leader>h", [[:nohlsearch<CR>]], { desc = "Clear search highlights" })
@@ -34,3 +35,4 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank into system clipboard" })
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank rest of line into system clipboard" })
+vim.keymap.set("n", "<C-w>h", "<C-w>s", { desc = "Split window horizontally" })
