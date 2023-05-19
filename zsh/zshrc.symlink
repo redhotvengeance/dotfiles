@@ -39,6 +39,9 @@ done
 
 unset config_files
 
+# check for and load fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 if [ -z ${DOTFILES_LOADED+x} ]; then
   # Access zsh online help
   unalias run-help
