@@ -17,6 +17,8 @@ bind-key -T copy-mode-vi 'v' send -X begin-selection
 bind-key -T copy-mode-vi 'C-v' send -X rectangle-toggle
 bind-key -T copy-mode-vi 'y' send -X copy-selection
 
+bind-key -r t run-shell "tmux neww ~/.dotfiles/bin/tmux-sessionizer"
+
 # check for and load local bindings.sh
 if-shell '[ -e ~/.dotfiles/tmux/bindings.sh.local ]' {
   source ~/.dotfiles/tmux/bindings.sh.local

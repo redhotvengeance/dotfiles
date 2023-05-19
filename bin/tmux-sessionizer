@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Shamelessly stolen (but somewhat modified) from:
+# https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
+
+if [[ $# -eq 1 ]]; then
+  selected=$1
+else
+  selected=$(find ~/ ~/projects -mindepth 1 -maxdepth 1 -type d | fzf)
+fi
+
+if [[ -z $selected ]]; then
+  exit 0
+fi
+
+selected_name=$(basename "$selected" | tr . _)
+tmux_running=$(pgrep tmux)
+
+# if tmux is running
+if [[ -n $tmux_running ]]; then
+  # and we're in a tmux session
+  if [[ -n $TMUX ]]; then
+    # and the session name already exists
+    if tmux has-session -t="$selected_name" 2> /dev/null; then
+      # switch to the existing session
+      tmux switch-client -t "$selected_name"
+      exit 0
+    else
+      # otherwise, create a new session in the bg then switch to it
+      # (to avoid nesting sessions)
+      tmux new-session -ds "$selected_name" -c "$selected"
+      tmux switch-client -t "$selected_name"
+      exit 0
+    fi
+  # but if we're not in a tmux session
+  elif tmux has-session -t="$selected_name" 2> /dev/null; then
+    # attach to the existing session
+    tmux attach-session -t="$selected_name"
+    exit 0
+  fi
+fi
+
+# otherwise, create a new tmux session
+tmux new-session -s "$selected_name" -c "$selected"

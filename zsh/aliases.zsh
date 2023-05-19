@@ -27,3 +27,5 @@ done
 
 # set homebrew ownership
 alias brewfix="sudo chown -R $(whoami) /usr/local/bin /usr/local/etc /usr/local/sbin /usr/local/share /usr/local/share/doc && chmod u+w /usr/local/bin /usr/local/etc /usr/local/sbin /usr/local/share /usr/local/share/doc"
+
+alias t="tmux-sessionizer"
