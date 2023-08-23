@@ -36,3 +36,5 @@ alias lst="exa --long --tree --header --icons --no-permissions --no-user --color
 alias cat="bat"
 
 alias http="xh"
+
+alias json="jless --line-numbers --relative-line-numbers"
