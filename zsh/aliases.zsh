@@ -32,3 +32,5 @@ alias t="tmux-sessionizer"
 
 alias ls="exa --long --header --icons --no-permissions --no-user --time-style=long-iso --git"
 alias lst="exa --long --tree --header --icons --no-permissions --no-user --color=always --time-style=long-iso --git | less -R"
+
+alias cat="bat"
