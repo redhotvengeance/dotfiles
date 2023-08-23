@@ -29,3 +29,6 @@ done
 alias brewfix="sudo chown -R $(whoami) /usr/local/bin /usr/local/etc /usr/local/sbin /usr/local/share /usr/local/share/doc && chmod u+w /usr/local/bin /usr/local/etc /usr/local/sbin /usr/local/share /usr/local/share/doc"
 
 alias t="tmux-sessionizer"
+
+alias ls="exa --long --header --icons --no-permissions --no-user --time-style=long-iso --git"
+alias lst="exa --long --tree --header --icons --no-permissions --no-user --color=always --time-style=long-iso --git | less -R"
