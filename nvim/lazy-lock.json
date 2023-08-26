@@ -17,6 +17,7 @@
   "nvim-rg": { "branch": "main", "commit": "2b5a4785d6926c496a735c897d2f3559224af363" },
   "nvim-treesitter": { "branch": "master", "commit": "4fe6b4c07f2383053a3f4ccc1bd621f19ddd3ff6" },
   "nvim-web-devicons": { "branch": "master", "commit": "b34362b20a4942b3245f958e73ebe1b09b020ad1" },
+  "oil.nvim": { "branch": "master", "commit": "c12a12c34da2a04465308f410095bcbe47996f0b" },
   "plenary.nvim": { "branch": "master", "commit": "9ac3e9541bbabd9d73663d757e4fe48a675bb054" },
   "rose-pine": { "branch": "main", "commit": "2eace84d649d76d41dcd44a87a17f64c7c4a586d" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "580b6c48651cabb63455e97d7e131ed557b8c7e2" },
