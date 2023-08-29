@@ -25,13 +25,13 @@ return {
       },
       -- browse recent files
       {
-        "<leader>fo",
+        "<leader>?",
         "<cmd>Telescope oldfiles<cr>",
-        desc = "Recent",
+        desc = "Recent files",
       },
       -- browse open buffers
       {
-        "<leader>b",
+        "<leader><space>",
         "<cmd>Telescope buffers<cr>",
         desc = "Open buffers",
         nowait = true,
@@ -39,9 +39,40 @@ return {
       {
         "<leader>fs",
         function()
-          require("telescope.builtin").grep_string({ search = vim.fn.input("Grep > ") })
+          require("telescope.builtin").live_grep()
         end,
         desc = "Grep",
+      },
+      {
+        "<leader>/",
+        function()
+          require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
+            winblend = 10,
+            previewer = false,
+          })
+        end,
+        desc = "Fuzzy find in current buffer",
+      },
+      {
+        "<leader>fg",
+        function()
+          require("telescope.builtin").git_files()
+        end,
+        desc = "Find Git file",
+      },
+      {
+        "<leader>fh",
+        function()
+          require("telescope.builtin").help_tags()
+        end,
+        desc = "Find help tag",
+      },
+      {
+        "<leader>fd",
+        function()
+          require("telescope.builtin").diagnostics()
+        end,
+        desc = "Find in diagnostics",
       },
     },
     opts = {
