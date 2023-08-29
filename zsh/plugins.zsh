@@ -3,4 +3,5 @@
 plug "romkatv/powerlevel10k"
 plug "zsh-users/zsh-autosuggestions"
 plug "zap-zsh/supercharge"
+plug "zap-zsh/vim"
 plug "zsh-users/zsh-syntax-highlighting"

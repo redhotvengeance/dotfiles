@@ -4,6 +4,10 @@ fi
 
 export DOTFILES=$HOME/.dotfiles
 
+export EDITOR=nvim
+export GIT_EDITOR=nvim
+export VISUAL=nvim
+
 source $DOTFILES/zsh/plugins.zsh
 
 # Sources: https://github.com/nicknisi/dotfiles/blob/master/zsh/zshrc.symlink and https://github.com/holman/dotfiles/blob/master/zsh/zshrc.symlink
@@ -38,6 +42,10 @@ do
 done
 
 unset config_files
+
+autoload edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd "^v" edit-command-line
 
 # check for and load fzf.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
