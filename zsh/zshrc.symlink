@@ -50,13 +50,6 @@ bindkey -M vicmd "^v" edit-command-line
 # check for and load fzf.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [ -z ${DOTFILES_LOADED+x} ]; then
-  # Access zsh online help
-  unalias run-help
-  autoload run-help
-  HELPDIR=/usr/local/share/zsh/help
-fi
-
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # check for and load local zshrc
