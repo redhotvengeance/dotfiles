@@ -2,11 +2,8 @@
 
 export DOTFILES=$HOME/.dotfiles
 
-# display how long all tasks over 10 seconds take
-export REPORTTIME=10
+source $DOTFILES/zsh/plugins.zsh
 
-# get c-h working in nvim
-export TERMINFO="$HOME/.terminfo"
 
 # all of our zsh files
 typeset -U config_files
@@ -28,7 +25,7 @@ do
 done
 
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
+autoload -Uz compinit
 compinit
 
 # load every completion after autocomplete loads
@@ -47,11 +44,6 @@ if [ -z ${DOTFILES_LOADED+x} ]; then
   unalias run-help
   autoload run-help
   HELPDIR=/usr/local/share/zsh/help
-
-  # install zsh-syntax-highlighting
-  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  # install zsh autosuggestions
-  source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 # check for and load local zshrc
