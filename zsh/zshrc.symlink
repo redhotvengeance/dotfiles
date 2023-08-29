@@ -1,9 +1,12 @@
-# Sources: https://github.com/nicknisi/dotfiles/blob/master/zsh/zshrc.symlink and https://github.com/holman/dotfiles/blob/master/zsh/zshrc.symlink
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 export DOTFILES=$HOME/.dotfiles
 
 source $DOTFILES/zsh/plugins.zsh
 
+# Sources: https://github.com/nicknisi/dotfiles/blob/master/zsh/zshrc.symlink and https://github.com/holman/dotfiles/blob/master/zsh/zshrc.symlink
 
 # all of our zsh files
 typeset -U config_files
@@ -45,6 +48,8 @@ if [ -z ${DOTFILES_LOADED+x} ]; then
   autoload run-help
   HELPDIR=/usr/local/share/zsh/help
 fi
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # check for and load local zshrc
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
