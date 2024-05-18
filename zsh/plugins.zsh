@@ -7,3 +7,4 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zap-zsh/supercharge
 zinit light zap-zsh/vim
 zinit light zsh-users/zsh-syntax-highlighting
+zinit ice depth=1; zinit light romkatv/powerlevel10k
