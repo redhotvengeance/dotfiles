@@ -9,15 +9,21 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      homeConfigurations."ian" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+  outputs = inputs@{ nixpkgs, home-manager, ... }: {
+    nixosConfigurations = {
+      vali = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
 
-        modules = [ ./home.nix ];
+	modules = [
+	  ./hosts/vali/configuration.nix
+
+	  home-manager.nixosModules.home-manager {
+	    home-manager.useGlobalPkgs = true;
+	    home-manager.useUserPackages = true;
+	    home-manager.users.ian = import ./hosts/vali/home.nix;
+	  }
+	];
       };
     };
+  };
 }
