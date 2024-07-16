@@ -4,6 +4,7 @@
   imports = [
     ../../home/foot
     ../../home/git
+    ../../home/nvim
   ];
 
   home.username = "ian";
