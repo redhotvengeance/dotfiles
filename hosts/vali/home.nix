@@ -3,6 +3,7 @@
 {
   imports = [
     ../../home/foot
+    ../../home/git
   ];
 
   home.username = "ian";

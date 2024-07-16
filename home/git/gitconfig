@@ -36,6 +36,6 @@
 	clean = git media clean %f
 	smudge = git media smudge %f
 [include]
-  path = .gitconfig.local
+	path = .gitconfig.local
 [rerere]
 	enabled = true

@@ -100,7 +100,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     brave
-    git
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
