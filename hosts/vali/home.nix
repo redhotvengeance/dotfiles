@@ -5,6 +5,7 @@
     ../../home/foot
     ../../home/git
     ../../home/nvim
+    ../../home/tmux
     ../../home/zsh
   ];
 
