@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../home/bat
     ../../home/eza
     ../../home/foot
     ../../home/git
