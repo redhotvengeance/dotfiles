@@ -8,6 +8,7 @@
     ../../home/git
     ../../home/nvim
     ../../home/tmux
+    ../../home/xh
     ../../home/zsh
   ];
 
