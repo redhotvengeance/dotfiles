@@ -41,4 +41,8 @@
       }
     ];
   };
+
+  home.packages = with pkgs; [
+    (writeScriptBin "t" (builtins.readFile ./bin/tmux-sessionizer))
+  ];
 }
