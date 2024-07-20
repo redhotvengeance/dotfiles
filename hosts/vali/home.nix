@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../home/eza
     ../../home/foot
     ../../home/git
     ../../home/nvim
