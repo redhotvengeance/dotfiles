@@ -8,6 +8,7 @@
     ../../home/fzf
     ../../home/git
     ../../home/nvim
+    ../../home/rg
     ../../home/tmux
     ../../home/xh
     ../../home/zsh
