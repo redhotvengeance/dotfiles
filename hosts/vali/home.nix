@@ -7,6 +7,7 @@
     ../../home/foot
     ../../home/fzf
     ../../home/git
+    ../../home/json
     ../../home/nvim
     ../../home/rg
     ../../home/tmux
