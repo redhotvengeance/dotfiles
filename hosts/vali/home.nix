@@ -5,6 +5,7 @@
     ../../home/bat
     ../../home/eza
     ../../home/foot
+    ../../home/fzf
     ../../home/git
     ../../home/nvim
     ../../home/tmux
