@@ -99,7 +99,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    brave
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

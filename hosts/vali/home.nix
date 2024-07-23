@@ -3,6 +3,7 @@
 {
   imports = [
     ../../home/bat
+    ../../home/brave
     ../../home/eza
     ../../home/foot
     ../../home/fzf
