@@ -11,6 +11,7 @@
     ../../home/gmailctl
     ../../home/json
     ../../home/nvim
+    ../../home/pass
     ../../home/rg
     ../../home/tmux
     ../../home/xh
