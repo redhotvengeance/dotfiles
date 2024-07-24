@@ -13,7 +13,6 @@
     ../../home/hyprland
     ../../home/hyprlock
     ../../home/json
-    ../../home/lf
     ../../home/nvim
     ../../home/pass
     ../../home/rg
@@ -23,6 +22,7 @@
     ../../home/tmux
     ../../home/waybar
     ../../home/xh
+    ../../home/yazi
     ../../home/zsh
   ];
 
