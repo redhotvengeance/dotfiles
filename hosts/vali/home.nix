@@ -10,6 +10,7 @@
     ../../home/git
     ../../home/gmailctl
     ../../home/json
+    ../../home/lf
     ../../home/nvim
     ../../home/pass
     ../../home/rg
