@@ -1,14 +1,18 @@
 return {
   "stevearc/oil.nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
-  keys = {
-    { "<leader>n", function() require("oil").open() end, desc = "Open oil" },
+  dependencies = {
+    { "echasnovski/mini.icons", opts = {} }
   },
-  config = function()
-    require("oil").setup({
-      view_options = {
-        show_hidden = true,
-      }
-    })
-  end,
+  opts = {
+    default_file_explorer = true,
+    float = {
+      preview_split = "right",
+    },
+    view_options = {
+      show_hidden = true,
+    },
+  },
+  keys = {
+    { "-", function() require("oil").toggle_float() end, { desc = "Open Oil" } },
+  },
 }
