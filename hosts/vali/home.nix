@@ -13,6 +13,7 @@
     ../../home/nvim
     ../../home/pass
     ../../home/rg
+    ../../home/starship
     ../../home/tmux
     ../../home/xh
     ../../home/yazi

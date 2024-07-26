@@ -18,6 +18,7 @@
     ../../home/rg
     ../../home/rofi
     ../../home/slack
+    ../../home/starship
     ../../home/swaync
     ../../home/tmux
     ../../home/waybar

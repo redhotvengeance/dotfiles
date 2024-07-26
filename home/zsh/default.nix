@@ -1,20 +1,10 @@
-{ config, pkgs, lib, dotfiles, ... }: {
+{ pkgs, ... }: {
   programs.zsh = {
     enable = true;
 
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-
-    initExtraFirst =
-      ''
-        # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-        # Initialization code that may require console input (password prompts, [y/n]
-        # confirmations, etc.) must go above this block; everything else may go below.
-        if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-          source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-        fi
-      '';
 
     history = {
       extended = true;
@@ -44,8 +34,6 @@
         autoload edit-command-line
         zle -N edit-command-line
         bindkey -M vicmd "^v" edit-command-line
-
-        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
         # check for and load local zshrc
         [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
@@ -84,18 +72,6 @@
           sha256 = "sha256-aAmbl5XT0gj/obEVznc7M0DkyWmyRNSyO/QPwMqzZ00=";
         };
       }
-      {
-        name = "powerlevel10k";
-        file = "powerlevel10k.zsh-theme";
-        src = pkgs.fetchFromGitHub {
-          owner = "romkatv";
-          repo = "powerlevel10k";
-          rev = "2b7da93df04acd04d84f5de827e5b14077839a4b";
-          sha256 = "sha256-jzLWxLLBB1MZZKJgt5R4oueuQIiqCDKRp+W+PXALHRs=";
-        };
-      }
     ];
   };
-
-  home.file.".p10k.zsh".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/zsh/p10k.zsh";
 }
