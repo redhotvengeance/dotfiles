@@ -23,6 +23,9 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.ian = import ./hosts/lflinux/home.nix;
+            home-manager.extraSpecialArgs = {
+              dotfiles = "/home/ian/dotfiles";
+            };
           }
         ];
       };
@@ -36,6 +39,9 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.ian = import ./hosts/vali/home.nix;
+            home-manager.extraSpecialArgs = {
+              dotfiles = "/home/ian/dotfiles";
+            };
           }
         ];
       };

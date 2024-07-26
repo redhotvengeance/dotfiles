@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, dotfiles, ... }: {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -8,8 +8,5 @@
     gcc
   ];
 
-  home.file.".config/nvim" = {
-    source = ../nvim;
-    recursive = true;
-  };
+  home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/nvim";
 }

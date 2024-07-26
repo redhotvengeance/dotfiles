@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ config, pkgs, lib, dotfiles, ... }: {
   programs.zsh = {
     enable = true;
 
@@ -97,5 +97,5 @@
     ];
   };
 
-  home.file.".p10k.zsh".source = ./p10k.zsh;
+  home.file.".p10k.zsh".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/zsh/p10k.zsh";
 }
