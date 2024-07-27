@@ -3,6 +3,7 @@ return {
   dependencies = {
     { "j-hui/fidget.nvim", opts = {} },
     { "https://git.sr.ht/~whynothugo/lsp_lines.nvim" },
+    { "stevearc/conform.nvim", opts = {} },
   },
   config = function()
     local capabilities = nil
@@ -82,6 +83,21 @@ return {
 
       lspconfig[name].setup(config)
     end
+
+    local conform = require("conform")
+
+    conform.setup({
+      formatters_by_ft = {
+        lua = { "stylua" },
+      },
+    })
+
+    conform.setup({
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_format = "fallback",
+      },
+    })
 
     require("lsp_lines").setup()
     vim.diagnostic.config { virtual_text = false }
