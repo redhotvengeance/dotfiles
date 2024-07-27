@@ -1,24 +1,33 @@
 return {
 	"hrsh7th/nvim-cmp",
-	event = "InsertEnter",
+	version = false,
+	event = { "InsertEnter", "CmdLineEnter" },
 	dependencies = {
-		"L3MON4D3/LuaSnip",
-		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
-		"rafamadriz/friendly-snippets",
+		"hrsh7th/cmp-path",
+		"hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-cmdline",
+		{
+			"L3MON4D3/LuaSnip",
+			build = "make install_jsregexp",
+			dependencies = {
+				{
+					"rafamadriz/friendly-snippets",
+					config = function()
+						require("luasnip.loaders.from_vscode").lazy_load()
+					end,
+				},
+			},
+		},
+		"saadparwaiz1/cmp_luasnip",
 	},
-	-- stolen from https://github.com/nvim-lua/kickstart.nvim/blob/01a1ebed38c5ef28cfe1409f8589bce60b7b727b/init.lua#L480
 	config = function()
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
+
 		require("luasnip.loaders.from_vscode").lazy_load()
 		luasnip.config.setup({})
 
-		cmp.setup({
-			mapping = {
-				["<CR>"] = cmp.mapping.confirm({ select = true }),
-			},
-		})
 		cmp.setup({
 			snippet = {
 				expand = function(args)
@@ -26,38 +35,61 @@ return {
 				end,
 			},
 			mapping = cmp.mapping.preset.insert({
-				["<C-n>"] = cmp.mapping.select_next_item(),
-				["<C-p>"] = cmp.mapping.select_prev_item(),
-				["<C-d>"] = cmp.mapping.scroll_docs(-4),
-				["<C-f>"] = cmp.mapping.scroll_docs(4),
-				["<C-Space>"] = cmp.mapping.complete({}),
-				["<CR>"] = cmp.mapping.confirm({
-					behavior = cmp.ConfirmBehavior.Replace,
-					select = true,
-				}),
-				["<Tab>"] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_next_item()
-					elseif luasnip.expand_or_locally_jumpable() then
+				-- Select the next item
+				["<TAB>"] = cmp.mapping.select_next_item(),
+				-- Select the previous item
+				["<S-TAB>"] = cmp.mapping.select_prev_item(),
+
+				-- Scroll documentation window down
+				["<C-e>"] = cmp.mapping.scroll_docs(3),
+				-- Scroll documentation window up
+				["<C-y>"] = cmp.mapping.scroll_docs(-3),
+
+				-- Cancel the completion
+				["<C-c>"] = cmp.mapping.abort(),
+
+				-- Accept the completion
+				["<CR>"] = cmp.mapping.confirm({ select = false }),
+
+				-- Manually trigger a completion from nvim-cmp
+				["<C-Space>"] = cmp.mapping.complete(),
+
+				-- Move forward through each of the expansion locations
+				["<C-l>"] = cmp.mapping(function()
+					if luasnip.expand_or_locally_jumpable() then
 						luasnip.expand_or_jump()
-					else
-						fallback()
 					end
 				end, { "i", "s" }),
-				["<S-Tab>"] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_prev_item()
-					elseif luasnip.locally_jumpable(-1) then
+				-- Move backward through each of the expansion locations
+				["<C-h>"] = cmp.mapping(function()
+					if luasnip.locally_jumpable(-1) then
 						luasnip.jump(-1)
-					else
-						fallback()
 					end
 				end, { "i", "s" }),
 			}),
 			sources = {
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
+				{ name = "path" },
+				{ name = "buffer" },
 			},
+		})
+
+		cmp.setup.cmdline({ "/", "?" }, {
+			mapping = cmp.mapping.preset.cmdline(),
+			source = {
+				{ name = "buffer" },
+			},
+		})
+
+		cmp.setup.cmdline({ ":" }, {
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = cmp.config.sources({
+				{ name = "path" },
+			}, {
+				{ name = "cmdline" },
+			}),
+			matching = { disallow_symbol_nonprefix_matching = false },
 		})
 	end,
 }
