@@ -2,6 +2,7 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = {
     { "j-hui/fidget.nvim", opts = {} },
+    { "https://git.sr.ht/~whynothugo/lsp_lines.nvim" },
   },
   config = function()
     local capabilities = nil
@@ -81,5 +82,8 @@ return {
 
       lspconfig[name].setup(config)
     end
+
+    require("lsp_lines").setup()
+    vim.diagnostic.config { virtual_text = false }
   end,
 }
