@@ -16,7 +16,21 @@ return {
 		local servers = {
 			bashls = {},
 			cssls = {},
-			gopls = {},
+			gopls = {
+				settings = {
+					gopls = {
+						hints = {
+							assignVariableTypes = true,
+							compositeLiteralFields = true,
+							compositeLiteralTypes = true,
+							constantValues = true,
+							functionTypeParameters = true,
+							parameterNames = true,
+							rangeVariableTypes = true,
+						},
+					},
+				},
+			},
 			html = {},
 			jsonls = {},
 			lua_ls = {
@@ -71,6 +85,12 @@ return {
 			map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "[w]orkspace [s]ymbols")
 			map("<leader>rn", vim.lsp.buf.rename, "[r]e[n]ame")
 			map("<leader>ca", vim.lsp.buf.code_action, "[c]ode [a]ction")
+
+			if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+				map("<leader>th", function()
+					vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }))
+				end, "[t]oggle Inlay [h]ints")
+			end
 
 			if settings.server_capabilities then
 				for k, v in pairs(settings.server_capabilities) do
