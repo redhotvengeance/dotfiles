@@ -1,15 +1,15 @@
 return {
-  "lewis6991/gitsigns.nvim",
-  lazy = true,
-  event = "VeryLazy",
-  opts = {
-    signs = {
-      add = { text = "+" },
-      change = { text = "~" },
-      delete = { text = "_" },
-      topdelete = { text = "‾" },
-      changedelete = { text = "~" },
-      untracked = { text = "?" },
-    }
-  },
+	"lewis6991/gitsigns.nvim",
+	lazy = true,
+	event = "VeryLazy",
+	opts = {
+		signs = {
+			add = { text = "+" },
+			change = { text = "~" },
+			delete = { text = "_" },
+			topdelete = { text = "‾" },
+			changedelete = { text = "~" },
+			untracked = { text = "?" },
+		},
+	},
 }

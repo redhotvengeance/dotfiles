@@ -1,6 +1,6 @@
 -- set the leaders
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 vim.opt.termguicolors = true -- make pretty colors
 vim.opt.number = true -- line numbers are kinda important
