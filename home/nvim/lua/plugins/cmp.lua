@@ -21,6 +21,7 @@ return {
 		},
 		"saadparwaiz1/cmp_luasnip",
 		"onsails/lspkind.nvim",
+		"kristijanhusak/vim-dadbod-completion",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -100,6 +101,13 @@ return {
 				{ name = "cmdline" },
 			}),
 			matching = { disallow_symbol_nonprefix_matching = false },
+		})
+
+		cmp.setup.filetype({ "sql" }, {
+			sources = {
+				{ name = "vim-dadbod-completion" },
+				{ name = "buffer" },
+			},
 		})
 	end,
 }
