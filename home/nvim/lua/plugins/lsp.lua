@@ -1,5 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
+	event = "VeryLazy",
 	dependencies = {
 		{ "j-hui/fidget.nvim", opts = {} },
 		{ "https://git.sr.ht/~whynothugo/lsp_lines.nvim" },

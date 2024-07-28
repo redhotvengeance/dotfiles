@@ -1,6 +1,7 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
+		lazy = true,
 		-- install fzf native
 		dependencies = {
 			"nvim-lua/plenary.nvim",
