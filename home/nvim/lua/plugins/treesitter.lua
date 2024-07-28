@@ -1,7 +1,14 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	event = "VeryLazy",
+	version = false,
 	build = ":TSUpdate",
+	event = "VeryLazy",
+	lazy = vim.fn.argc(-1) == 0,
+	init = function(plugin)
+		require("lazy.core.loader").add_to_rtp(plugin)
+		require("nvim-treesitter.query_predicates")
+	end,
+	cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
 	opts = {
 		auto_install = true,
 		context_commentstring = {
@@ -9,42 +16,17 @@ return {
 			enable_autocmd = false,
 		},
 		ensure_installed = {
-			"bash",
-			"c",
-			"go",
-			"html",
-			"javascript",
-			"json",
 			"lua",
+			"luadoc",
 			"markdown",
 			"markdown_inline",
-			"python",
 			"query",
 			"regex",
-			"ruby",
-			"rust",
-			"typescript",
 			"vim",
 			"vimdoc",
-			"yaml",
 		},
-		highlight = {
-			enable = true,
-			disable = {
-				"c",
-				"rust",
-			},
-			additional_vim_regex_highlighting = false,
-		},
-		incremental_selection = {
-			enable = true,
-			keymaps = {
-				init_selection = "<C-space>",
-				node_incremental = "<C-space>",
-				scope_incremental = "<nop>",
-				node_decremental = "<bs>",
-			},
-		},
+		highlight = { enable = true },
+		indent = { enable = true },
 		sync_install = false,
 	},
 	config = function(_, opts)
