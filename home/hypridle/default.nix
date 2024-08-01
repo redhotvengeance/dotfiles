@@ -4,10 +4,8 @@
 
     settings = {
       general = {
-        lock_cmd = "hyprlock"; # Avoid starting multiple hyprlock instances.
-        before_sleep_cmd = "loginctl lock-session"; # Lock before suspend.
+        before_sleep_cmd = "pid hyprlock || hyprlock --immediate"; # Lock before suspend.
         after_sleep_cmd = "hyprctl dispatch dpms on"; # Avoid having to press a key twice to turn on the display.
-        ignore_dbus_inhibit = false;
       };
 
       listener = [
@@ -21,7 +19,7 @@
         # Lock screen.
         {
           timeout = 300;
-          on-timeout = "loginctl lock-session";
+          on-timeout = "pid hyprlock || hyprlock";
         }
 
         # Turn off screen.
@@ -34,7 +32,7 @@
         # Suspend.
         {
           timeout = 1800;
-          on-timeout = "systemctl suspend";
+          on-timeout = "pid hyprlock || hyprlock --immediate & systemctl suspend";
         }
       ];
     };
