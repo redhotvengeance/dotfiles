@@ -4,6 +4,7 @@
   imports = [
     ../../home/bat
     ../../home/brave
+    ../../home/discord
     ../../home/eza
     ../../home/foot
     ../../home/fzf
