@@ -84,7 +84,6 @@ return {
 			map("<leader>D", builtin.lsp_type_definitions, "Type [D]efinition")
 			map("<leader>ds", builtin.lsp_document_symbols, "[d]ocument [s]ymbols")
 			map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "[w]orkspace [s]ymbols")
-			map("<leader>rn", vim.lsp.buf.rename, "[r]e[n]ame")
 			map("<leader>ca", vim.lsp.buf.code_action, "[c]ode [a]ction")
 
 			if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
