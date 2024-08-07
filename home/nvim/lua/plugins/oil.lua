@@ -16,10 +16,15 @@ return {
 	keys = {
 		{
 			"-",
+			"<cmd>Oil<cr>",
+			{ desc = "Open Oil" },
+		},
+		{
+			"<leader>-",
 			function()
 				require("oil").toggle_float()
 			end,
-			{ desc = "Open Oil" },
+			{ desc = "Open Oil in floating window" },
 		},
 	},
 }
