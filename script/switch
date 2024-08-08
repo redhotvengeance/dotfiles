@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Install all the things! Set all the settings! Config all the configs!
+
+set -e
+
+sudo nixos-rebuild switch --flake flake.nix

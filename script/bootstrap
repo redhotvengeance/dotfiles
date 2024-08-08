@@ -4,16 +4,14 @@
 
 set -e
 
-cd "$(dirname $0)"/..
+echo "Checking for Nix..."
 
-echo "Installing things..."
-./script/install
+if test ! "$(which nix)"; then
+  echo ""
+  echo "Attempting to install Nix..."
 
-echo "Linking things..."
-./script/link
+  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+fi
 
-echo "Updating Mac Apps..."
-./macos/update.sh
-
-echo "Setting Mac defaults..."
-./macos/defaults.sh
+echo ""
+echo "Good to go!"
