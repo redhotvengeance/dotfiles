@@ -103,18 +103,41 @@ return {
 			desc = "Command history",
 		},
 	},
-	opts = {
-		defaults = {
-			mappings = {
-				i = {
-					["<C-j>"] = function(...)
-						return require("telescope.actions").move_selection_next(...)
-					end,
-					["<C-k>"] = function(...)
-						return require("telescope.actions").move_selection_previous(...)
-					end,
+	opts = function()
+		local n_mappings = {}
+
+		local i_mappings = {
+			["<C-j>"] = {
+				require("telescope.actions").move_selection_next,
+				type = "action",
+			},
+			["<C-k>"] = {
+				require("telescope.actions").move_selection_previous,
+				type = "action",
+			},
+		}
+
+		if pcall(require, "trouble.sources.telescope") then
+			n_mappings["<C-t>"] = {
+				require("trouble.sources.telescope").open,
+				type = "action",
+				opts = { desc = "open selected in [t]rouble" },
+			}
+
+			i_mappings["<C-t>"] = {
+				require("trouble.sources.telescope").open,
+				type = "action",
+				opts = { desc = "open selected in [t]rouble" },
+			}
+		end
+
+		return {
+			defaults = {
+				mappings = {
+					n = n_mappings,
+					i = i_mappings,
 				},
 			},
-		},
-	},
+		}
+	end,
 }
