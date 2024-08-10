@@ -4,4 +4,12 @@
 
 set -e
 
-sudo nixos-rebuild switch --flake flake.nix
+if test "$(which nixos-rebuild)"; then
+  echo "On NixOS, rebuilding system..."
+
+  sudo nixos-rebuild switch --flake flake.nix
+else
+  echo "Not NixOS, using Home Manager..."
+
+  nix run home-manager -- switch --impure --flake .
+fi
