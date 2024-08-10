@@ -10,7 +10,15 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixos-hardware, ... }: {
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    nixos-hardware,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
+  in {
     nixosConfigurations = {
       lflinux = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -44,6 +52,17 @@
             };
           }
         ];
+      };
+    };
+
+    homeConfigurations = {
+      "ilollar@ilollar3" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; };
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          dotfiles = "/home/ilollar/dotfiles";
+        };
+        modules = [ ./hosts/ilollar3/home.nix ];
       };
     };
   };
