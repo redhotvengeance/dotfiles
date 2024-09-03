@@ -3,6 +3,7 @@
 {
   imports = [
     ../../home/bat
+    ../../home/dunst
     ../../home/eza
     ../../home/foot
     ../../home/fzf
@@ -15,7 +16,6 @@
     ../../home/rofi
     ../../home/slack
     ../../home/starship
-    ../../home/swaync
     ../../home/tmux
     ../../home/waybar
     ../../home/xh
