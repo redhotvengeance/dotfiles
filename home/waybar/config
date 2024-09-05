@@ -1,33 +1,34 @@
 {
     "layer": "top",
-    "margin": "8 8 8 8",
+    "position": "bottom",
+    "margin": "1 0 0 0",
     "spacing": 0,
-    "modules-left": ["hyprland/workspaces", "hyprland/window", "hyprland/submap"],
-    "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "backlight", "cpu", "temperature", "memory", "network", "battery", "custom/notification"],
+    "modules-left": ["hyprland/submap", "hyprland/workspaces", "hyprland/window"],
+    "modules-right": ["pulseaudio", "backlight", "network", "battery", "cpu", "temperature", "memory", "tray", "clock"],
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "warp-on-scroll": false,
-        "format": "{name} {icon}",
+        "format": "{name}{icon}",
         "format-icons": {
-            "urgent": "",
-            "focused": "",
-            "default": ""
-        }
+            "urgent": " ",
+            "focused": " ",
+            "default": "",
+        },
+        "show-special": true,
+        "special-visible-only": true
     },
-    "clock": {
-        "timezone": "America/Los_Angeles",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "{:%H:%M %a %d %b}"
+    "backlight": {
+        "format": "DIS {percent}%",
+        "tooltip": false
     },
     "pulseaudio": {
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+        "format": "VOL {volume}%",
+        "format-bluetooth": "VOL {volume}% ",
+        "format-bluetooth-muted": "VOL --% ",
+        "format-muted": "VOL --%",
+        "format-source-muted": "VOL --% ",
+        "format-source": "VOL {volume}% ",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -37,61 +38,44 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
+        "tooltip": false
     },
-    "backlight": {
-        "format": "{percent}% {icon}",
-        "format-icons": ["", ""]
+    "network": {
+        "format-wifi": "W: {ipaddr}/{cidr} ({signalStrength}%)",
+        "format-ethernet": "E: {ipaddr}/{cidr}",
+        "tooltip-format-wifi": "{essid}",
+        "format-disconnected": "DISCONNECTED",
+    },
+    "battery": {
+        "states": {
+            "critical": 15
+        },
+        "format": "BAT {capacity}% {time}",
+        "format-charging": "BAT {capacity}%  {time}",
+        "format-plugged": "BAT {capacity}% ",
+        "format-time": "{H}:{m}",
+        "interval": 10,
+        "tooltip": false
     },
     "cpu": {
-        "format": "{usage}% ",
+        "format": "CPU {usage}%",
         "tooltip": false
     },
     "temperature": {
         "critical-threshold": 80,
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+        "format": "{temperatureC}°C",
+        "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "format": "MEM {}%"
     },
-    "network": {
-        "format-wifi": "",
-        "format-ethernet": "",
-        "tooltip-format": "{essid} ({signalStrength}%)",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ipaddr}/{cidr}"
+    "tray": {
+      "spacing": 4
     },
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "custom/notification": {
-        "tooltip": false,
-        "format": "{icon}",
-        "format-icons": {
-            "notification": "<span foreground='red'><sup></sup></span>",
-            "none": "",
-            "dnd-notification": "<span foreground='red'><sup></sup></span>",
-            "dnd-none": "",
-            "inhibited-notification": "<span foreground='red'><sup></sup></span>",
-            "inhibited-none": "",
-            "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
-            "dnd-inhibited-none": ""
-        },
-        "return-type": "json",
-        "exec-if": "which swaync-client",
-        "exec": "swaync-client -swb",
-        "on-click": "swaync-client -t -sw",
-        "on-click-right": "swaync-client -d -sw",
-        "escape": true
+    "clock": {
+        "timezone": "America/Los_Angeles",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "format": "{:%Y-%m-%d %H:%M:%S}",
+        "interval": 1
     }
 }

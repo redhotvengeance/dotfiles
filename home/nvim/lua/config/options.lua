@@ -2,8 +2,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.opt.colorcolumn = "80" -- show textwidth guide
-vim.opt.cursorline = true -- help me find my cursor
 vim.opt.expandtab = true -- spaces over tabs
 vim.opt.ignorecase = true -- big == small
 vim.opt.jumpoptions = "view"
