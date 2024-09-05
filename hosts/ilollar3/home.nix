@@ -47,6 +47,8 @@
     SSH_AUTH_SOCK = "${builtins.getEnv "XDG_RUNTIME_DIR"}/ssh-agent.socket";
   };
 
+  fonts.fontconfig.enable = true;
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

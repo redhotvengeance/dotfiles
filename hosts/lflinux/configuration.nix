@@ -10,7 +10,6 @@
       ./hardware-configuration.nix
       ../../modules/bluetooth.nix
       ../../modules/flatpak.nix
-      ../../modules/fonts.nix
       ../../modules/gpg.nix
       ../../modules/greetd.nix
       ../../modules/laptop.nix

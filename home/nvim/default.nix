@@ -7,6 +7,7 @@
   home.packages = with pkgs; [
     gcc
     gnumake
+    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
 
     # language servers
     nodePackages_latest.bash-language-server
