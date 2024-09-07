@@ -32,7 +32,11 @@
             home-manager.useUserPackages = true;
             home-manager.users.ian = import ./hosts/lflinux/home.nix;
             home-manager.extraSpecialArgs = {
-              dotfiles = "/home/ian/dotfiles";
+              host = {
+                dotfiles = "/home/ian/dotfiles";
+                hostname = "lflinux";
+                system = "x86_64-linux";
+              };
             };
           }
         ];
@@ -48,7 +52,11 @@
             home-manager.useUserPackages = true;
             home-manager.users.ian = import ./hosts/vali/home.nix;
             home-manager.extraSpecialArgs = {
-              dotfiles = "/home/ian/dotfiles";
+              host = {
+                dotfiles = "/home/ian/dotfiles";
+                hostname = "vali";
+                system = "x86_64-linux";
+              };
             };
           }
         ];
@@ -60,7 +68,11 @@
         pkgs = import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; };
         extraSpecialArgs = {
           inherit inputs outputs;
-          dotfiles = "/home/ilollar/dotfiles";
+          host = {
+            dotfiles = "/home/ilollar/dotfiles";
+            hostname = "ilollar3";
+            system = "x86_64-linux";
+          };
         };
         modules = [ ./hosts/ilollar3/home.nix ];
       };

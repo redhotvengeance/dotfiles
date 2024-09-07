@@ -1,4 +1,4 @@
-{ config, pkgs, dotfiles, ... }: {
+{ config, pkgs, host, ... }: {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -24,5 +24,5 @@
     vscode-langservers-extracted
   ];
 
-  home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/nvim";
+  home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${host.dotfiles}/home/nvim";
 }
