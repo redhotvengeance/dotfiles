@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, host, ... }:
 let
   clamshell = pkgs.writeShellScript "clamshell" ''
     #!/usr/bin/env bash
@@ -20,9 +20,19 @@ let
       fi
     fi
   '';
+
+  monitors = import ../../modules/monitors.nix;
+
+  outs = [
+    (",preferred,auto," + "${monitors.laptop.${host.hostname}.scale}")
+  ] ++ builtins.map (x: "desc:" + x.name + "," + x.value.res + "@" + x.value.hz + ",auto," + x.value.scale) monitors.external;
 in {
   wayland.windowManager.hyprland = {
     enable = true;
+
+    settings = {
+      monitor = outs;
+    };
 
     extraConfig = builtins.readFile ./hyprland.conf + ''
       bindl =, switch:on:Lid Switch, exec, ${clamshell} on
