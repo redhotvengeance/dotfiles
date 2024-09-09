@@ -53,7 +53,7 @@ return {
 			sqlls = {},
 			tailwindcss = {},
 			templ = {},
-			tsserver = {
+			ts_ls = {
 				server_capabilities = {
 					documentFormattingProvider = false,
 				},
