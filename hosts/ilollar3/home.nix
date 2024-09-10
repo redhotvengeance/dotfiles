@@ -16,6 +16,7 @@
     ../../home/rofi
     ../../home/slack
     ../../home/starship
+    ../../home/sway
     ../../home/tmux
     ../../home/waybar
     ../../home/xh
