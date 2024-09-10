@@ -1,4 +1,12 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, host, ... }:
+let
+  modules-left = if host.comp == "hyprland" then
+    [ "hyprland/submap" "hyprland/workspaces" "hyprland/window" ]
+  else if host.comp == "sway" then
+    [ "sway/mode" "sway/workspaces" "sway/scratchpad" "sway/window" ]
+  else
+    [];
+in {
   programs.waybar = {
     enable = true;
 
@@ -6,10 +14,13 @@
       mainBar = {
         layer = "top";
         position = "bottom";
-        margin = "1 0 0 0";
+        margin = "0";
         spacing = 0;
-        modules-left = [ "hyprland/submap" "hyprland/workspaces" "hyprland/window" ];
+        modules-left = modules-left;
         modules-right = [ "pulseaudio" "backlight" "network" "battery" "cpu" "temperature" "memory" "tray" "clock" ];
+        "sway/mode" = {
+          format = "<span style=\"italic\">{}</span>";
+        };
         "hyprland/workspaces" = {
           all-outputs = true;
           format = "{name}{icon}";
@@ -19,6 +30,25 @@
           };
           show-special = true;
           special-visible-only = true;
+        };
+        "sway/workspaces" = {
+            disable-scroll = true;
+            all-outputs = true;
+            warp-on-scroll = false;
+            format = "{name}{icon}";
+            format-icons = {
+              urgent = " ";
+              default = "";
+            };
+            show-special = true;
+            special-visible-only = true;
+        };
+        "sway/scratchpad" = {
+            format = "{icon} {count}";
+            show-empty = false;
+            format-icons = ["" ""];
+            tooltip = true;
+            tooltip-format = "{app}: {title}";
         };
         backlight = {
           format = "DIS {percent}%";

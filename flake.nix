@@ -33,6 +33,7 @@
             home-manager.users.ian = import ./hosts/lflinux/home.nix;
             home-manager.extraSpecialArgs = {
               host = {
+                comp = "hyprland";
                 dotfiles = "/home/ian/dotfiles";
                 hostname = "lflinux";
                 system = "x86_64-linux";
@@ -69,6 +70,7 @@
         extraSpecialArgs = {
           inherit inputs outputs;
           host = {
+            comp = "sway";
             dotfiles = "/home/ilollar/dotfiles";
             hostname = "ilollar3";
             system = "x86_64-linux";

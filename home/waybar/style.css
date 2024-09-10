@@ -34,6 +34,12 @@ button:hover:not(.active) {
     padding: 2px 8px 0 8px;
 }
 
+#mode {
+    background-color: #eb4d4b;
+    margin: 3px 4px 3px 0;
+    padding: 2px 8px 0 8px;
+}
+
 #workspaces button {
     background-color: transparent;
     color: #ffffff;
@@ -51,8 +57,8 @@ button:hover:not(.active) {
 }
 
 #workspaces button.focused {
-    background-color: #64727D;
-    box-shadow: inset 0 -3px #ffffff;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0px 3px rgba(5, 4, 8, 0.9), inset 0px -3px rgba(5, 4, 8, 0.9);
 }
 
 #workspaces button.urgent {
