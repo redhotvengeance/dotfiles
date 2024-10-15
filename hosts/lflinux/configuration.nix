@@ -98,6 +98,9 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Enable drawing tablet support.
+  hardware.opentabletdriver.enable = true;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
