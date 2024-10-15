@@ -23,7 +23,7 @@
       };
     }
     {
-      name = "BOE Display demoset-1";
+      name = "BOE Display 0x00000001";
       value = {
         res = "2560x1440";
         hz = "144";
