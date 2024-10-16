@@ -1,6 +1,6 @@
 { pkgs, host, ... }:
 let
-  clamshell = pkgs.writeShellScript "clamshell" ''
+  clamshell = pkgs.writeShellScriptBin "clamshell" ''
     #!/usr/bin/env bash
 
     sleep 1
@@ -43,6 +43,9 @@ in {
   home.packages = with pkgs; [
     lxqt.lxqt-policykit
     gnugrep
+    (
+      clamshell
+    )
   ];
 
   xdg.portal = {

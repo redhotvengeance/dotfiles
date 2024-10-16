@@ -1,6 +1,6 @@
 { config, lib, pkgs, host, ... }:
 let
-  clamshell = pkgs.writeShellScript "clamshell" ''
+  clamshell = pkgs.writeShellScriptBin "clamshell" ''
     #!/usr/bin/env bash
 
     sleep 1
@@ -183,4 +183,10 @@ in {
       export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
     '';
   };
+
+  home.packages = [
+    (
+      clamshell
+    )
+  ];
 }
