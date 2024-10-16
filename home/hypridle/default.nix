@@ -19,7 +19,7 @@
         # Lock screen.
         {
           timeout = 300;
-          on-timeout = "pid hyprlock || hyprlock";
+          on-timeout = "pid hyprlock || hyprlock || cw";
         }
 
         # Turn off screen.

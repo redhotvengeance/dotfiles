@@ -14,6 +14,7 @@
     ../../home/hypridle
     ../../home/hyprland
     ../../home/hyprlock
+    ../../home/hyprpaper
     ../../home/hyprshot
     ../../home/json
     ../../home/nvim
