@@ -45,8 +45,11 @@
   };
 
   home.sessionVariables = {
-    SSH_AUTH_SOCK = "${builtins.getEnv "XDG_RUNTIME_DIR"}/ssh-agent.socket";
   };
+
+  home.sessionVariablesExtra = ''
+    eval $(ssh-agent -s) > /dev/null
+  '';
 
   fonts.fontconfig.enable = true;
 
