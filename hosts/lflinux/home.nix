@@ -5,7 +5,6 @@
     ../../home/bat
     ../../home/brave
     ../../home/discord
-    ../../home/dunst
     ../../home/eza
     ../../home/foot
     ../../home/fzf
@@ -23,6 +22,7 @@
     ../../home/rofi
     ../../home/slack
     ../../home/starship
+    ../../home/swaync
     ../../home/tmux
     ../../home/waybar
     ../../home/xh
