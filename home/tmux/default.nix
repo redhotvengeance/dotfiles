@@ -1,6 +1,7 @@
-{ pkgs, ... }: {
+{ unstable, ... }: {
   programs.tmux = {
     enable = true;
+    package = unstable.tmux;
 
     shortcut = "a";
 
@@ -30,7 +31,7 @@
       }
     '';
 
-    plugins = with pkgs.tmuxPlugins; [
+    plugins = with unstable.tmuxPlugins; [
       pain-control
       vim-tmux-navigator
       {
@@ -42,7 +43,7 @@
     ];
   };
 
-  home.packages = with pkgs; [
+  home.packages = with unstable; [
     (writeScriptBin "t" (builtins.readFile ./bin/tmux-sessionizer))
   ];
 }

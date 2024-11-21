@@ -1,3 +1,6 @@
-{ ... }: {
-  programs.ripgrep.enable = true;
+{ unstable, ... }: {
+  programs.ripgrep = {
+    enable = true;
+    package = unstable.ripgrep;
+  };
 }

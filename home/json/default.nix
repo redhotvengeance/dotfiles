@@ -1,7 +1,10 @@
-{ pkgs, ... }: {
-  programs.jq.enable = true;
+{ unstable, ... }: {
+  programs.jq = {
+    enable = true;
+    package = unstable.jq;
+  };
 
-  home.packages = with pkgs; [
+  home.packages = with unstable; [
     jless
   ];
 }

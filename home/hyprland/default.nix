@@ -1,12 +1,12 @@
-{ pkgs, host, ... }:
+{ unstable, host, ... }:
 let
-  clamshell = pkgs.writeShellScriptBin "clamshell" ''
+  clamshell = unstable.writeShellScriptBin "clamshell" ''
     #!/usr/bin/env bash
 
     sleep 1
 
-    LID_OPEN=$(${pkgs.gnugrep}/bin/grep -c open /proc/acpi/button/lid/LID0/state)
-    NUM_MONITORS=$(hyprctl monitors all | ${pkgs.gnugrep}/bin/grep -c Monitor)
+    LID_OPEN=$(${unstable.gnugrep}/bin/grep -c open /proc/acpi/button/lid/LID0/state)
+    NUM_MONITORS=$(hyprctl monitors all | ${unstable.gnugrep}/bin/grep -c Monitor)
 
     if [[ $1 == "on" ]]; then
       if [[ $NUM_MONITORS -gt 1 ]]; then
@@ -29,6 +29,7 @@ let
 in {
   wayland.windowManager.hyprland = {
     enable = true;
+    package = unstable.hyprland;
 
     settings = {
       monitor = outs;
@@ -40,7 +41,7 @@ in {
     '';
   };
 
-  home.packages = with pkgs; [
+  home.packages = with unstable; [
     lxqt.lxqt-policykit
     gnugrep
     (
@@ -52,7 +53,7 @@ in {
     enable = true;
     config.common.default = "*";
     extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
+      unstable.xdg-desktop-portal-hyprland
     ];
   };
 }

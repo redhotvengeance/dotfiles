@@ -1,6 +1,7 @@
-{ ... }: {
+{ unstable, ... }: {
   services.hypridle = {
     enable = true;
+    package = unstable.hypridle;
 
     settings = {
       general = {

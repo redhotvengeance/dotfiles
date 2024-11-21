@@ -1,6 +1,7 @@
-{ pkgs, ... }: {
+{ unstable, ... }: {
   services.swaync = {
     enable = true;
+    package = unstable.swaynotificationcenter;
 
     style = ''
       @define-color cc-bg rgba(25, 25, 25, 0.7);
@@ -89,7 +90,7 @@
     };
   };
 
-  home.packages = with pkgs; [
+  home.packages = with unstable; [
     libnotify
   ];
 }

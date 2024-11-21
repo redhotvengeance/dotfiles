@@ -1,6 +1,7 @@
-{ pkgs, ... }: {
+{ unstable, ... }: {
   services.hyprpaper = {
     enable = true;
+    package = unstable.hyprpaper;
 
     settings = {
       ipc = "on";
@@ -11,7 +12,7 @@
 
   home.packages = [
     (
-      pkgs.writeShellScriptBin "cw" ''
+      unstable.writeShellScriptBin "cw" ''
         file=$(find ~/wallpapers -type f | shuf -n 1)
         sleep 1
         hyprctl hyprpaper unload all

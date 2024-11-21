@@ -1,4 +1,4 @@
-{ config, pkgs, host, ... }:
+{ config, unstable, host, ... }:
 let
   modules-left = if host.comp == "hyprland" then
     [ "hyprland/submap" "hyprland/workspaces" "hyprland/window" ]
@@ -9,6 +9,7 @@ let
 in {
   programs.waybar = {
     enable = true;
+    package = unstable.waybar;
 
     settings = {
       mainBar = {
@@ -116,7 +117,7 @@ in {
     style = ./style.css;
   };
 
-  home.packages = with pkgs; [
+  home.packages = with unstable; [
     font-awesome
   ];
 }

@@ -2,9 +2,10 @@
   description = "redhotvengeance does nix";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -14,15 +15,16 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     home-manager,
     nixos-hardware,
+    rose-pine-hyprcursor,
     ...
   } @ inputs: let
     inherit (self) outputs;
   in {
     nixosConfigurations = {
       lflinux = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         specialArgs = { inherit inputs; };
 
         modules = [
@@ -34,6 +36,15 @@
             home-manager.useUserPackages = true;
             home-manager.users.ian = import ./hosts/lflinux/home.nix;
             home-manager.extraSpecialArgs = {
+              pkgs = import nixpkgs {
+                system = "x86_64-linux";
+                config.allowUnfree = true;
+              };
+              unstable = import nixpkgs-unstable {
+                system = "x86_64-linux";
+                config.allowUnfree = true;
+              };
+
               host = {
                 comp = "hyprland";
                 dotfiles = "/home/ian/dotfiles";
@@ -45,7 +56,7 @@
         ];
       };
       vali = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
 
         modules = [
           ./hosts/vali/configuration.nix
@@ -55,6 +66,15 @@
             home-manager.useUserPackages = true;
             home-manager.users.ian = import ./hosts/vali/home.nix;
             home-manager.extraSpecialArgs = {
+              pkgs = import nixpkgs {
+                system = "x86_64-linux";
+                config.allowUnfree = true;
+              };
+              unstable = import nixpkgs-unstable {
+                system = "x86_64-linux";
+                config.allowUnfree = true;
+              };
+
               host = {
                 dotfiles = "/home/ian/dotfiles";
                 hostname = "vali";
@@ -68,9 +88,18 @@
 
     homeConfigurations = {
       "ilollar@ilollar3" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; };
+        specialArgs = { inherit inputs; };
+
         extraSpecialArgs = {
-          inherit inputs outputs;
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+          unstable = import nixpkgs-unstable {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+
           host = {
             comp = "sway";
             dotfiles = "/home/ilollar/dotfiles";

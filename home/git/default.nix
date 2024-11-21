@@ -1,7 +1,10 @@
-{ config, pkgs, host, ... }: {
-  programs.git.enable = true;
+{ config, unstable, host, ... }: {
+  programs.git = {
+    enable = true;
+    package = unstable.git;
+  };
 
-  home.packages = with pkgs; [
+  home.packages = with unstable; [
     diff-so-fancy
   ];
 

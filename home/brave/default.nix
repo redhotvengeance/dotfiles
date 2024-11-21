@@ -1,10 +1,10 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
+{ unstable, ... }: {
+  home.packages = with unstable; [
     brave
   ];
 
   home.sessionVariables = {
-    DEFAULT_BROWSER = "${pkgs.brave}";
+    DEFAULT_BROWSER = "${unstable.brave}";
   };
 
   xdg.mimeApps.defaultApplications = {

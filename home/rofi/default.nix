@@ -1,11 +1,11 @@
-{ pkgs, ... }: {
+{ unstable, ... }: {
   programs.rofi = {
     enable = true;
+    package = unstable.rofi-wayland;
 
-    package = pkgs.rofi-wayland;
     theme = "arthur";
     plugins = [
-      pkgs.rofi-calc
+      unstable.rofi-calc
     ];
   };
 }

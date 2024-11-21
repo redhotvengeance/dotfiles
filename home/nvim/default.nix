@@ -1,10 +1,11 @@
-{ config, pkgs, host, ... }: {
+{ config, unstable, host, ... }: {
   programs.neovim = {
     enable = true;
+    package = unstable.neovim-unwrapped;
     defaultEditor = true;
   };
 
-  home.packages = with pkgs; [
+  home.packages = with unstable; [
     gcc
     gnumake
     (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })

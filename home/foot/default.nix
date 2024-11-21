@@ -1,5 +1,5 @@
-{ config, pkgs, host, ... }: {
-  home.packages = with pkgs; [
+{ config, unstable, host, ... }: {
+  home.packages = with unstable; [
     foot
     meslo-lgs-nf
   ];

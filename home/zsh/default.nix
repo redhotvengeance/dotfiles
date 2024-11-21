@@ -1,6 +1,7 @@
-{ pkgs, ... }: {
+{ unstable, ... }: {
   programs.zsh = {
     enable = true;
+    package = unstable.zsh;
 
     enableCompletion = true;
     autosuggestion.enable = true;
@@ -56,7 +57,7 @@
     plugins = [
       {
         name = "supercharge";
-        src = pkgs.fetchFromGitHub {
+        src = unstable.fetchFromGitHub {
           owner = "zap-zsh";
           repo = "supercharge";
           rev = "e76f4e82d443706c2d9c8ab8e9633facbcdec768";
@@ -65,7 +66,7 @@
       }
       {
         name = "vim";
-        src = pkgs.fetchFromGitHub {
+        src = unstable.fetchFromGitHub {
           owner = "zap-zsh";
           repo = "vim";
           rev = "46284178bcad362db40509e1db058fe78844d113";

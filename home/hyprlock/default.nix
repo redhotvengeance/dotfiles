@@ -1,6 +1,7 @@
-{ ... }: {
+{ unstable, ... }: {
   programs.hyprlock = {
     enable = true;
+    package = unstable.hyprlock;
 
     settings = {
       general = {
