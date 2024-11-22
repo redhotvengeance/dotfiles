@@ -3,6 +3,7 @@
 {
   imports = [
     ../../home/bat
+    ../../home/direnv
     ../../home/eza
     ../../home/foot
     ../../home/fzf
