@@ -43,6 +43,9 @@
               unstable = import nixpkgs-unstable {
                 system = "x86_64-linux";
                 config.allowUnfree = true;
+                overlays = [(final: prev: {
+                  rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
+                })];
               };
 
               host = {
@@ -98,6 +101,9 @@
           unstable = import nixpkgs-unstable {
             system = "x86_64-linux";
             config.allowUnfree = true;
+            overlays = [(final: prev: {
+              rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
+            })];
           };
 
           host = {

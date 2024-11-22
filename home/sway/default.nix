@@ -45,6 +45,7 @@ in {
       right = "l";
       terminal = "foot";
       menu = "rofi -show drun";
+      calc = "rofi -show calc -modi calc";
       input = {
         "type:keyboard" = {
           xkb_options = "ctrl:nocaps";
@@ -71,10 +72,12 @@ in {
         right = config.wayland.windowManager.sway.config.right;
         terminal = config.wayland.windowManager.sway.config.terminal;
         menu = config.wayland.windowManager.sway.config.menu;
+        calc = config.wayland.windowManager.sway.config.calc;
       in lib.mkOptionDefault {
         "${modifier}+Return" = "exec ${terminal}";
         "${modifier}+Shift+q" = "kill";
         "${modifier}+d" = "exec ${menu}";
+        "${modifier}+c" = "exec ${calc}";
 
         "${modifier}+${left}" = "focus left";
         "${modifier}+${down}" = "focus down";
