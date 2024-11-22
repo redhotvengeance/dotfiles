@@ -18,6 +18,7 @@
     ../../home/json
     ../../home/nvim
     ../../home/pass
+    ../../home/qutebrowser
     ../../home/rg
     ../../home/rofi
     ../../home/slack
