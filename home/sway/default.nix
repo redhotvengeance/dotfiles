@@ -63,7 +63,11 @@ in {
         smartGaps = true;
         smartBorders = "on";
       };
-      bars = [];
+      bars = [
+        {
+          command = "waybar";
+        }
+      ];
       keybindings = let
         modifier = config.wayland.windowManager.sway.config.modifier;
         left = config.wayland.windowManager.sway.config.left;
