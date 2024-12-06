@@ -8,7 +8,7 @@
   home.packages = with unstable; [
     gcc
     gnumake
-    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+    nerd-fonts.symbols-only
 
     # language servers
     nodePackages_latest.bash-language-server

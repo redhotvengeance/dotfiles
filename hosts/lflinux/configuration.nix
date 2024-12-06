@@ -4,6 +4,12 @@
 
 { config, lib, pkgs, inputs, ... }:
 
+let
+  unstable = import inputs.nixpkgs-unstable {
+    system = "x86_64-linux";
+    config.allowUnfree = true;
+  };
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -105,7 +111,10 @@
   services.openssh.enable = true;
 
   # Enable drawing tablet support.
-  hardware.opentabletdriver.enable = true;
+  hardware.opentabletdriver = {
+    enable = true;
+    package = unstable.opentabletdriver;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
