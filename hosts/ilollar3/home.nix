@@ -8,6 +8,7 @@
     ../../home/foot
     ../../home/fzf
     ../../home/git
+    ../../home/ghostty
     ../../home/gmailctl
     ../../home/json
     ../../home/nvim

@@ -10,6 +10,7 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
+    ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
   };
 
   outputs = {
@@ -19,6 +20,7 @@
     home-manager,
     nixos-hardware,
     rose-pine-hyprcursor,
+    ghostty,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -47,6 +49,8 @@
                   rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
                 })];
               };
+
+              ghostty = ghostty;
 
               host = {
                 comp = "hyprland";

@@ -43,7 +43,7 @@ in {
       down = "j";
       up = "k";
       right = "l";
-      terminal = "foot";
+      terminal = "ghostty";
       menu = "rofi -show drun";
       calc = "rofi -show calc -modi calc";
       input = {

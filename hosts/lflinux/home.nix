@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, ghostty, ... }:
 
 {
   imports = [
@@ -10,6 +10,7 @@
     ../../home/foot
     ../../home/fzf
     ../../home/git
+    ../../home/ghostty
     ../../home/gmailctl
     ../../home/hypridle
     ../../home/hyprland
