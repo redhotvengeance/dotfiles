@@ -1,5 +1,5 @@
 SYSTEM="arch"
 
 PACKAGES=(
-	less
+  less
 )

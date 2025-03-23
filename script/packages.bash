@@ -1,7 +1,7 @@
 function apt {
-	$cmd sudo apt install --yes $@
+  $cmd sudo apt install --yes $@
 }
 
 function pacman {
-	$cmd sudo pacman --sync --needed --noconfirm $@
+  $cmd sudo pacman --sync --needed --noconfirm $@
 }

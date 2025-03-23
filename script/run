@@ -13,38 +13,38 @@ cmd=""
 dry="0"
 
 function help {
-	echo "script/run [flags]"
-	echo ""
-	echo "Flags:"
-	echo "  -h|--help   Show this help screen"
+  echo "script/run [flags]"
+  echo ""
+  echo "Flags:"
+  echo "  -h|--help   Show this help screen"
 }
 
 while [[ $# -gt 0 ]]; do
-	case $1 in
-		--dry|-n)
-			cmd="log"
-			dry="1"
-			;;
-		--help|-h)
-			help
-			exit 0
-			;;
-	esac
+  case $1 in
+    --dry|-n)
+      cmd="log"
+      dry="1"
+      ;;
+    --help|-h)
+      help
+      exit 0
+      ;;
+  esac
 
-	shift
+  shift
 done
 
 . "$HOSTS_DIR/$CURR_HOST.bash"
 
 for h in "${PACKAGES[@]}"; do
-	install_script="$HOME_DIR/$h/install.bash"
-	link_script="$HOME_DIR/$h/link.bash"
+  install_script="$HOME_DIR/$h/install.bash"
+  link_script="$HOME_DIR/$h/link.bash"
 
-	if [[ -f "$install_script" ]]; then
-		. "$install_script"
-	fi
+  if [[ -f "$install_script" ]]; then
+    . "$install_script"
+  fi
 
-	if [[ -f "$link_script" ]]; then
-		. "$link_script"
-	fi
+  if [[ -f "$link_script" ]]; then
+    . "$link_script"
+  fi
 done
