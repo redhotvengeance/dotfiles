@@ -4,6 +4,7 @@ CURR_HOST=$(cat /etc/hostname)
 DOTFILES_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")"/.. &> /dev/null && pwd)
 HOME_DIR="$DOTFILES_DIR/home"
 HOSTS_DIR="$DOTFILES_DIR/hosts"
+SOURCE_DIR="$DOTFILES_DIR/.source"
 SCRIPT_DIR="$DOTFILES_DIR/script"
 
 source "$SCRIPT_DIR/common.bash"
