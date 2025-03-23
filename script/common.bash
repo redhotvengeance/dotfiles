@@ -5,3 +5,7 @@ function log {
 		echo "$@"
 	fi
 }
+
+function link {
+	$cmd ln -sf $@
+}
