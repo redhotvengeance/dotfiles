@@ -1,0 +1,5 @@
+SYSTEM="glinux"
+
+PACKAGES=(
+	less
+)
