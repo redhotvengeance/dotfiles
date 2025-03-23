@@ -1,0 +1,4 @@
+SYSTEM="arch"
+
+PACKAGES=(
+)
