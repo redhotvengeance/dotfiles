@@ -1,5 +1,5 @@
-SYSTEM="glinux"
+export SYSTEM="glinux"
 
-PACKAGES=(
+export PACKAGES=(
   less
 )

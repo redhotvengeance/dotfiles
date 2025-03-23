@@ -7,10 +7,6 @@ HOSTS_DIR="$DOTFILES_DIR/hosts"
 SCRIPT_DIR="$DOTFILES_DIR/script"
 
 source "$SCRIPT_DIR/common.bash"
-source "$SCRIPT_DIR/packages.bash"
-
-cmd=""
-dry="0"
 
 function help {
   echo "script/run [flags]"
@@ -34,6 +30,7 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
+# shellcheck source=/dev/null
 . "$HOSTS_DIR/$CURR_HOST.bash"
 
 for h in "${PACKAGES[@]}"; do
@@ -41,10 +38,12 @@ for h in "${PACKAGES[@]}"; do
   link_script="$HOME_DIR/$h/link.bash"
 
   if [[ -f "$install_script" ]]; then
+    # shellcheck source=/dev/null
     . "$install_script"
   fi
 
   if [[ -f "$link_script" ]]; then
+    # shellcheck source=/dev/null
     . "$link_script"
   fi
 done

@@ -1,11 +1,14 @@
+declare cmd
+declare dry
+
 function log {
   if [[ $dry == "1" ]]; then
-    echo "[DRY RUN]: $@"
+    echo [DRY RUN]: "$@"
   else
     echo "$@"
   fi
 }
 
 function link {
-  $cmd ln -sf $@
+  $cmd ln -sf "$@"
 }

@@ -1,5 +1,5 @@
-SYSTEM="arch"
+export SYSTEM="arch"
 
-PACKAGES=(
+export PACKAGES=(
   less
 )
