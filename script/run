@@ -37,6 +37,14 @@ done
 . "$HOSTS_DIR/$CURR_HOST.bash"
 
 for h in "${PACKAGES[@]}"; do
-	. "$HOME_DIR/$h/install.bash"
-	. "$HOME_DIR/$h/link.bash"
+	install_script="$HOME_DIR/$h/install.bash"
+	link_script="$HOME_DIR/$h/link.bash"
+
+	if [[ -f "$install_script" ]]; then
+		. "$install_script"
+	fi
+
+	if [[ -f "$link_script" ]]; then
+		. "$link_script"
+	fi
 done
