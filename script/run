@@ -6,6 +6,11 @@ HOME_DIR="$DOTFILES_DIR/home"
 HOSTS_DIR="$DOTFILES_DIR/hosts"
 SCRIPT_DIR="$DOTFILES_DIR/script"
 
+source "$SCRIPT_DIR/common.bash"
+
+cmd=""
+dry="0"
+
 function help {
 	echo "script/run [flags]"
 	echo ""
@@ -15,6 +20,10 @@ function help {
 
 while [[ $# -gt 0 ]]; do
 	case $1 in
+		--dry|-n)
+			cmd="log"
+			dry="1"
+			;;
 		--help|-h)
 			help
 			exit 0
