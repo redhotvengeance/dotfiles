@@ -32,3 +32,10 @@ while [[ $# -gt 0 ]]; do
 
 	shift
 done
+
+. "$HOSTS_DIR/$CURR_HOST.bash"
+
+for h in "${PACKAGES[@]}"; do
+	. "$HOME_DIR/$h/install.bash"
+	. "$HOME_DIR/$h/link.bash"
+done
