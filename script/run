@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+CURR_HOST=$(cat /etc/hostname)
+DOTFILES_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")"/.. &> /dev/null && pwd)
+HOME_DIR="$DOTFILES_DIR/home"
+HOSTS_DIR="$DOTFILES_DIR/hosts"
+SCRIPT_DIR="$DOTFILES_DIR/script"
+
+function help {
+	echo "script/run [flags]"
+	echo ""
+	echo "Flags:"
+	echo "  -h|--help   Show this help screen"
+}
+
+while [[ $# -gt 0 ]]; do
+	case $1 in
+		--help|-h)
+			help
+			exit 0
+			;;
+	esac
+
+	shift
+done
