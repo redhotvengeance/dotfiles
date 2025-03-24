@@ -13,6 +13,6 @@ function pull_or_clone {
   if [[ -d "$2" ]]; then
     $cmd git -C "$2" pull
   else
-    $cmd git clone "$1" "$2"
+    $cmd git clone --depth 1 "$1" "$2"
   fi
 }
