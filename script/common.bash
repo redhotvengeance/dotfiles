@@ -10,5 +10,5 @@ function log {
 }
 
 function link {
-  $cmd sudo ln -sf "$@"
+  $cmd sudo ln -snf "$@"
 }
