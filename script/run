@@ -48,3 +48,5 @@ for h in "${PACKAGES[@]}"; do
     . "$link_script"
   fi
 done
+
+link "$DOTFILES_DIR" "$HOME/.dotfiles"
