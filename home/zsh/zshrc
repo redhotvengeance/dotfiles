@@ -1,0 +1,56 @@
+bindkey -e
+
+setopt APPEND_HISTORY
+setopt AUTO_CD
+setopt COMPLETE_ALIASES
+setopt CORRECT
+setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY
+setopt INC_APPEND_HISTORY
+setopt LOCAL_OPTIONS
+setopt LOCAL_TRAPS
+setopt NO_BG_NICE
+setopt NO_HUP
+setopt NO_LIST_BEEP
+setopt PROMPT_SUBST
+setopt SHARE_HISTORY
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+
+# load plugins
+source $ZSH/plugins.zsh
+
+# load completions
+source $ZSH/completion.zsh
+
+# find all zsh files in the dotfiles
+typeset -U zsh_files
+zsh_files=($DOTFILES/**/*.zsh)
+
+# source the aliases files
+for file in ${(M)zsh_files:#*/aliases.zsh}
+do
+  source $file
+done
+
+# source the path files
+for file in ${(M)zsh_files:#*/path.zsh}
+do
+  source $file
+done
+
+unset zsh_files
+
+# bind ctrl-x ctrl-e to editing the command in the editor
+autoload edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
+# check for and load local zshrc
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+export DOTFILES_LOADED=1

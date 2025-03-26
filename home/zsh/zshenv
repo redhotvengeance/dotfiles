@@ -1,0 +1,9 @@
+export ZDOTDIR=$HOME/.config/zsh
+export ZSH=$HOME/.config/zsh
+export DOTFILES=$HOME/.dotfiles
+
+export EDITOR=nvim
+export GIT_EDITOR=nvim
+export VISUAL=nvim
+
+export PATH=$DOTFILES/bin:$PATH
