@@ -5,6 +5,7 @@ export PACKAGES=(
   eza
   ghostty
   git
+  json
   less
   neovim
   xh

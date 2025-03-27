@@ -5,6 +5,7 @@ export PACKAGES=(
   eza
   foot
   git
+  json
   less
   neovim
   xh
