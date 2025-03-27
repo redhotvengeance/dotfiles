@@ -43,12 +43,18 @@ do
   source $file
 done
 
-unset zsh_files
-
 # bind ctrl-x ctrl-e to editing the command in the editor
 autoload edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
+
+# source the path files
+for file in ${(M)zsh_files:#*/hook.zsh}
+do
+  source $file
+done
+
+unset zsh_files
 
 # check for and load local zshrc
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
