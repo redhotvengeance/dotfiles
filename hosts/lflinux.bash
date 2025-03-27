@@ -10,5 +10,6 @@ export PACKAGES=(
   neovim
   ripgrep
   xh
+  yazi
   zsh
 )
