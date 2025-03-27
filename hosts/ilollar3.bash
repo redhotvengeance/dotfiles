@@ -5,6 +5,7 @@ export PACKAGES=(
   direnv
   eza
   foot
+  fzf
   git
   json
   less

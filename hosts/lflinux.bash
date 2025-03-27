@@ -4,6 +4,7 @@ export PACKAGES=(
   bat
   direnv
   eza
+  fzf
   ghostty
   git
   json
