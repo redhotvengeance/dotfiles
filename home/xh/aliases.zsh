@@ -1,0 +1,7 @@
+alias GET="xh get"
+alias HEAD="xh head"
+alias POST="xh post"
+alias PUT="xh put"
+alias DELETE="xh delete"
+alias TRACE="xh trace"
+alias OPTIONS="xh options"

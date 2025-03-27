@@ -7,5 +7,6 @@ export PACKAGES=(
   git
   less
   neovim
+  xh
   zsh
 )
