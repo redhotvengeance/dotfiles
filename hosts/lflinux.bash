@@ -2,6 +2,7 @@ export SYSTEM="arch"
 
 export PACKAGES=(
   bat
+  direnv
   eza
   ghostty
   git

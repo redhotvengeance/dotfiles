@@ -2,6 +2,7 @@ export SYSTEM="glinux"
 
 export PACKAGES=(
   bat
+  direnv
   eza
   foot
   git
