@@ -5,6 +5,10 @@ function apt {
   $cmd sudo apt install --yes "$@"
 }
 
+function flatpak {
+  $cmd sudo flatpak install --or-update --assumeyes "$@"
+}
+
 function pacman {
   $cmd sudo pacman --sync --needed --noconfirm "$@"
 }
