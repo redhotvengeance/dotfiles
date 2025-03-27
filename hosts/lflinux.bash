@@ -8,6 +8,7 @@ export PACKAGES=(
   json
   less
   neovim
+  ripgrep
   xh
   zsh
 )
