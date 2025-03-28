@@ -11,6 +11,7 @@ export PACKAGES=(
   less
   neovim
   ripgrep
+  rofi
   slack
   tmux
   xh
