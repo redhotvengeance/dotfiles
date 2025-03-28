@@ -17,6 +17,6 @@ function pull_or_clone {
   if [[ -d "$2" ]]; then
     $cmd git -C "$2" pull
   else
-    $cmd git clone --depth 1 "$1" "$2"
+    $cmd git clone --depth 1 $([ "$3" ] && echo "--branch $3" || echo "") "$1" "$2"
   fi
 }
