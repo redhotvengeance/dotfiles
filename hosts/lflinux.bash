@@ -2,6 +2,7 @@ export SYSTEM="arch"
 
 export PACKAGES=(
   bat
+  chromium
   direnv
   discord
   eza
