@@ -12,7 +12,7 @@ if [[ "$SYSTEM" == "glinux" ]]; then
   apt ninja-build gettext cmake curl build-essential
 fi
 
-pull_or_clone https://github.com/neovim/neovim "$SOURCE_DIR/neovim"
+pull_or_clone https://github.com/neovim/neovim "$SOURCE_DIR/neovim" stable
 $cmd cd "$SOURCE_DIR/neovim"
 $cmd make CMAKE_BUILD_TYPE=RelWithDebInfo
 $cmd sudo make install
