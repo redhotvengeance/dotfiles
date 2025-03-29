@@ -14,6 +14,7 @@ export PACKAGES=(
   rofi
   slack
   tmux
+  waybar
   xh
   zsh
 )
