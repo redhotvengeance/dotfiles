@@ -19,6 +19,7 @@ export PACKAGES=(
   rofi
   slack
   tmux
+  uwsm
   waybar
   xh
   yazi
