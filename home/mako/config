@@ -1,0 +1,22 @@
+anchor=bottom-right
+background-color=#232136cc
+border-color=#524f67
+border-radius=0
+border-size=1
+default-timeout=5000
+font=monospace 10
+height=150
+icons=0
+ignore-timeout=1
+layer=overlay
+margin=10
+max-history=100
+max-visible=-1
+outer-margin=0,0,10
+padding=10
+sort=-time
+text-color=#e0def4
+width=300
+
+[urgency=high]
+default-timeout=0

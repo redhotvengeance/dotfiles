@@ -11,6 +11,7 @@ export PACKAGES=(
   git
   json
   less
+  mako
   neovim
   ripgrep
   rofi
