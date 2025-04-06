@@ -6,6 +6,5 @@ if [[ "$SYSTEM" == "arch" ]]; then
 fi
 
 if [[ "$SYSTEM" == "glinux" ]]; then
-  pull_or_clone https://github.com/ducaale/xh "$SOURCE_DIR/xh"
-  $cmd sh "$SOURCE_DIR/xh/install.sh"
+  nix xh
 fi

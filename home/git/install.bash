@@ -8,5 +8,5 @@ fi
 
 if [[ "$SYSTEM" == "glinux" ]]; then
   apt git
-  pull_or_clone https://github.com/so-fancy/diff-so-fancy.git "$HOME_DIR/git/diff-so-fancy"
+  nix git
 fi

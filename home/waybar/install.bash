@@ -7,6 +7,6 @@ if [[ "$SYSTEM" == "arch" ]]; then
 fi
 
 if [[ "$SYSTEM" == "glinux" ]]; then
-  apt waybar
+  nix waybar
   apt fonts-font-awesome
 fi

@@ -8,7 +8,5 @@ fi
 
 if [[ "$SYSTEM" == "glinux" ]]; then
   apt foot
-
-  $cmd pull_or_clone https://github.com/ryanoasis/nerd-fonts "$SOURCE_DIR/nerd-fonts"
-  $cmd sh "$SOURCE_DIR/nerd-fonts/install.sh" Meslo
+  nix nerd-fonts.meslo-lg meslo-lg
 fi

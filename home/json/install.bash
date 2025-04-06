@@ -6,5 +6,5 @@ if [[ "$SYSTEM" == "arch" ]]; then
 fi
 
 if [[ "$SYSTEM" == "glinux" ]]; then
-  apt jq
+  nix jq jless
 fi
