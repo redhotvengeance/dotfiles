@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+CURR_HOST=$(cat /etc/hostname)
+
+source "$HOME/.dotfiles/helpers/monitors.bash"
+
+if [[ "$(hyprctl monitors | grep -c Monitor)" > 1 && "$1" == "close" ]]; then
+  hyprctl keyword monitor "eDP-1, disable"
+else
+  hyprctl keyword monitor "eDP-1, preferred, auto, ${scale[$CURR_HOST]}"
+fi

@@ -2,6 +2,7 @@
 
 CURR_HOST=$(cat /etc/hostname)
 DOTFILES_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")"/.. &> /dev/null && pwd)
+HELPERS_DIR="$DOTFILES_DIR/helpers"
 HOME_DIR="$DOTFILES_DIR/home"
 HOSTS_DIR="$DOTFILES_DIR/hosts"
 SOURCE_DIR="$DOTFILES_DIR/.source"

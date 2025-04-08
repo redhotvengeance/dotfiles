@@ -12,6 +12,7 @@ export PACKAGES=(
   fzf
   ghostty
   git
+  hypr
   json
   less
   mako
