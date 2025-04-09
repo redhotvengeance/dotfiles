@@ -27,20 +27,26 @@ source $ZSH/plugins.zsh
 # load completions
 source $ZSH/completion.zsh
 
+source "$HOME/.dotfiles/hosts/$(cat /etc/hostname).bash"
+
 # find all zsh files in the dotfiles
 typeset -U zsh_files
 zsh_files=($DOTFILES/**/*.zsh)
 
-# source the aliases files
+# source the aliases files for loaded packages
 for file in ${(M)zsh_files:#*/aliases.zsh}
 do
-  source $file
+  if [[ "${PACKAGES[@]}" =~ "$(basename $(dirname $file))" ]]; then
+    source $file
+  fi
 done
 
-# source the path files
+# source the path files for loaded packages
 for file in ${(M)zsh_files:#*/path.zsh}
 do
-  source $file
+  if [[ "${PACKAGES[@]}" =~ "$(basename $(dirname $file))" ]]; then
+    source $file
+  fi
 done
 
 # bind ctrl-x ctrl-e to editing the command in the editor
@@ -48,10 +54,12 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
-# source the path files
+# source the hook files for loaded packages
 for file in ${(M)zsh_files:#*/hook.zsh}
 do
-  source $file
+  if [[ "${PACKAGES[@]}" =~ "$(basename $(dirname $file))" ]]; then
+    source $file
+  fi
 done
 
 unset zsh_files
