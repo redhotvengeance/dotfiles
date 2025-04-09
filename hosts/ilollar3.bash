@@ -16,6 +16,7 @@ export PACKAGES=(
   ripgrep
   rofi
   slack
+  sway
   tmux
   waybar
   xh

@@ -1,0 +1,116 @@
+set $terminal foot
+set $menu rofi -show drun
+
+bar swaybar_command waybar
+
+exec $terminal
+exec swayidle -w \
+    timeout 300 'swaylock -f -c 000000' \
+    timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f -c 000000'
+
+include /etc/sway/config-vars.d/*
+
+output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+
+include $HOME/.dotfiles/home/sway/monitors
+
+gaps inner 2
+gaps outer 0
+smart_gaps on
+smart_borders on
+default_border pixel 1
+
+input type:keyboard {
+    xkb_options ctrl:nocaps
+}
+
+input type:touchpad {
+    click_method clickfinger
+    natural_scroll enabled
+    tap enabled
+}
+
+input 2:10:TPPS/2_Elan_TrackPoint {
+    pointer_accel -0.35
+    scroll_factor 0.2
+}
+
+set $mainMod Mod4
+
+bindsym $mainMod+Return exec $terminal
+bindsym $mainMod+q kill
+bindsym $mainMod+Shift+c reload
+bindsym $mainMod+m exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym $mainMod+space floating toggle
+bindsym $mainMod+p sticky toggle
+bindsym $mainMod+f fullscreen
+bindsym $mainMod+d exec $menu
+bindsym $mainMod+b layout toggle split
+
+floating_modifier $mainMod normal
+
+bindsym $mainMod+h focus left
+bindsym $mainMod+j focus down
+bindsym $mainMod+k focus up
+bindsym $mainMod+l focus right
+
+bindsym $mainMod+Shift+h move left
+bindsym $mainMod+Shift+j move down
+bindsym $mainMod+Shift+k move up
+bindsym $mainMod+Shift+l move right
+
+bindsym $mainMod+1 workspace number 1
+bindsym $mainMod+2 workspace number 2
+bindsym $mainMod+3 workspace number 3
+bindsym $mainMod+4 workspace number 4
+bindsym $mainMod+5 workspace number 5
+bindsym $mainMod+6 workspace number 6
+bindsym $mainMod+7 workspace number 7
+bindsym $mainMod+8 workspace number 8
+bindsym $mainMod+9 workspace number 9
+bindsym $mainMod+0 workspace number 10
+
+bindsym $mainMod+Shift+1 move container to workspace number 1
+bindsym $mainMod+Shift+2 move container to workspace number 2
+bindsym $mainMod+Shift+3 move container to workspace number 3
+bindsym $mainMod+Shift+4 move container to workspace number 4
+bindsym $mainMod+Shift+5 move container to workspace number 5
+bindsym $mainMod+Shift+6 move container to workspace number 6
+bindsym $mainMod+Shift+7 move container to workspace number 7
+bindsym $mainMod+Shift+8 move container to workspace number 8
+bindsym $mainMod+Shift+9 move container to workspace number 9
+bindsym $mainMod+Shift+0 move container to workspace number 10
+
+bindsym $mainMod+s scratchpad show
+bindsym $mainMod+Shift+s move scratchpad
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+
+mode "resize" {
+    bindsym h resize shrink width 10px
+    bindsym j resize grow height 10px
+    bindsym k resize shrink height 10px
+    bindsym l resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mainMod+r mode "resize"
+
+bindswitch --reload --locked lid:on exec clamshell on
+bindswitch --reload --locked lid:off exec clamshell off
+
+for_window {
+    [app_id="firefox-esr" title="^Picture-in-Picture$"] border none; floating enable; sticky enable
+    [app_id="firefox-esr" title="^Firefox — Sharing Indicator$"] border none; floating enable; sticky enable
+    [class="Google-chrome" title="^about:blank$"] border none; floating enable; sticky enable
+}
+
+include /etc/sway/config.d/*

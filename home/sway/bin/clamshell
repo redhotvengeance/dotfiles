@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+CURR_HOST=$(cat /etc/hostname)
+
+source "$HOME/.dotfiles/helpers/monitors.bash"
+
+if [[ "$(swaymsg -p -t get_outputs | grep -c Output)" > 1 && "$1" == "close" ]]; then
+  swaymsg output eDP-1 disable
+else
+  swaymsg output eDP-1 enable scale "${scale[$CURR_HOST]}"
+fi
