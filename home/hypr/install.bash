@@ -7,7 +7,7 @@ function make_monitors {
   echo "monitor = , preferred, auto, ${scale[$CURR_HOST]}" > "$HOME_DIR/hypr/monitors.conf"
 
   for m in "${external[@]}"; do
-    echo "monitor = $m, ${res[$m]}, auto, ${scale[$m]}" >> "$HOME_DIR/hypr/monitors.conf"
+    echo "monitor = desc:$m, ${res[$m]}, auto, ${scale[$m]}" >> "$HOME_DIR/hypr/monitors.conf"
   done
 }
 
