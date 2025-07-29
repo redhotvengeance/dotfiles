@@ -5,6 +5,10 @@ external=(
   "BOE Display demoset-1"
 )
 
+res[meili]="2880x1920"
+hz[meili]="120"
+scale[meili]="2"
+
 res[lflinux]="2256x1504"
 hz[lflinux]="60"
 scale[lflinux]="1.6"
