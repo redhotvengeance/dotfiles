@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CURR_HOST=$(cat /etc/hostname)
+CURR_HOST=$(host)
 
 source "$HOME/.dotfiles/helpers/monitors.bash"
 

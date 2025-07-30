@@ -27,7 +27,7 @@ source $ZSH/plugins.zsh
 # load completions
 source $ZSH/completion.zsh
 
-source "$HOME/.dotfiles/hosts/$(cat /etc/hostname).bash"
+source "$HOME/.dotfiles/hosts/$(host).bash"
 
 # find all zsh files in the dotfiles
 typeset -U zsh_files

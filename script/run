@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CURR_HOST=$(cat /etc/hostname)
+CURR_HOST=$(host)
 DOTFILES_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")"/.. &> /dev/null && pwd)
 HELPERS_DIR="$DOTFILES_DIR/helpers"
 HOME_DIR="$DOTFILES_DIR/home"

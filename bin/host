@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+CURR_HOST=$(cat /etc/hostname)
+
+if command -v hostname >/dev/null 2>&1; then
+  CURR_HOST=$(hostname -s)
+fi
+
+echo $CURR_HOST
