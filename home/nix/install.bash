@@ -13,4 +13,6 @@ fi
 
 if [[ "$SYSTEM" == "glinux" ]]; then
   apt nix
+
+  sudo usermod -a -G nix-users "$USER"
 fi
