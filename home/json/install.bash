@@ -6,5 +6,6 @@ if [[ "$SYSTEM" == "arch" ]]; then
 fi
 
 if [[ "$SYSTEM" == "glinux" ]]; then
-  nix jq jless
+  nix jq
+  nix jless
 fi
