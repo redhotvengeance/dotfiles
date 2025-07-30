@@ -1,14 +1,10 @@
-return {
-	"nvim-lualine/lualine.nvim",
-	event = "VeryLazy",
-	dependencies = {
-		"nvim-tree/nvim-web-devicons",
-	},
-	config = function()
-		require("lualine").setup({
-			options = {
-				theme = "rose-pine",
-			},
-		})
-	end,
-}
+vim.pack.add({
+  { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+  { src = "https://github.com/nvim-lualine/lualine.nvim" },
+})
+
+require("lualine").setup({
+  options = {
+    theme = "rose-pine",
+  },
+})

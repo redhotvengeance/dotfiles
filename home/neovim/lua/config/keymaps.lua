@@ -28,7 +28,6 @@ vim.keymap.set("c", "qq", "bd")
 
 vim.keymap.set({ "n", "v" }, "<leader>c", [["_c]], { desc = "Change into the void" })
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete into the void" })
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format file" })
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlights" })
 vim.keymap.set(
 	"n",

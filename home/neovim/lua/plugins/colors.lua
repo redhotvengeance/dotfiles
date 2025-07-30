@@ -1,14 +1,10 @@
-return {
-	"rose-pine/neovim",
-	name = "rose-pine",
-	priority = 1000,
-	config = function()
-		require("rose-pine").setup({
-			styles = {
-				transparency = true,
-			},
-		})
+vim.pack.add({
+  { src = "https://github.com/rose-pine/neovim" },
+})
 
-		vim.cmd("colorscheme rose-pine")
-	end,
-}
+require("rose-pine").setup({
+  styles = {
+    transparency = true,
+  },
+})
+vim.cmd("colorscheme rose-pine")
