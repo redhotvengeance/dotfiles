@@ -94,31 +94,6 @@
     };
 
     homeConfigurations = {
-      "ilollar@ilollar3" = home-manager.lib.homeManagerConfiguration {
-        specialArgs = { inherit inputs; };
-
-        extraSpecialArgs = {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
-          unstable = import nixpkgs-unstable {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-            overlays = [(final: prev: {
-              rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
-            })];
-          };
-
-          host = {
-            comp = "sway";
-            dotfiles = "/home/ilollar/dotfiles";
-            hostname = "ilollar3";
-            system = "x86_64-linux";
-          };
-        };
-        modules = [ ./hosts/ilollar3/home.nix ];
-      };
     };
   };
 }

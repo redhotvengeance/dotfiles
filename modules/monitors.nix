@@ -6,12 +6,6 @@
       hz = "60";
       scale = "1.566667";
     };
-    ilollar3 = {
-      name = "eDP-1";
-      res = "3840x2400";
-      hz = "60";
-      scale = "2.4";
-    };
   };
   external = [
     {
