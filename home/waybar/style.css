@@ -34,12 +34,6 @@ button:hover:not(.active) {
     padding: 2px 8px 0 8px;
 }
 
-#mode {
-    background-color: #eb4d4b;
-    margin: 3px 4px 3px 0;
-    padding: 2px 8px 0 8px;
-}
-
 #workspaces button {
     background-color: transparent;
     color: #ffffff;

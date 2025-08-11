@@ -6,12 +6,8 @@
     "spacing": 0,
     "modules-left": [
         "hyprland/submap",
-        "sway/mode",
         "hyprland/workspaces",
-        "sway/workspaces",
-        "sway/scratchpad",
         "hyprland/window",
-        "sway/window",
     ],
     "modules-right": [
         "pulseaudio",
@@ -23,9 +19,6 @@
         "memory",
         "clock"
     ],
-    "sway/mode": {
-      "format": "<span style=\"italic\">{}</span>"
-    },
     "hyprland/workspaces": {
       "all-outputs": true,
       "format": "{name}{icon}",
@@ -35,25 +28,6 @@
       },
       "show-special": true,
       "special-visible-only": true
-    },
-    "sway/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "warp-on-scroll": false,
-        "format": "{name}{icon}",
-        "format-icons": {
-          "urgent": " ",
-          "default": ""
-        },
-        "show-special": true,
-        "special-visible-only": true
-    },
-    "sway/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": ["", ""],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
     },
     "backlight": {
       "format": "DIS {percent}%",
