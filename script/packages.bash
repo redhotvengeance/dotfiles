@@ -6,8 +6,8 @@ function apt {
 }
 
 function nix {
-  $cmd "$(which nix)" profile install "nixpkgs#$1"
-  $cmd "$(which nix)" profile upgrade "$([ $2 ] && echo $2 || echo $1)"
+  $cmd "$(which nix)" profile install --impure $([[ "$1" =~ "github:" ]] && echo "$1" || echo "nixpkgs#$1")
+  $cmd "$(which nix)" profile upgrade --impure $([ "$2" ] && echo "$2" || echo "$1")
 }
 
 function pacman {
