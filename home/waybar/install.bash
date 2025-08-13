@@ -3,7 +3,7 @@ source "$SCRIPT_DIR/packages.bash"
 
 if [[ "$SYSTEM" == "arch" ]]; then
   pacman waybar
-  pacman otf-font-awesome
+  pacman ttf-meslo-nerd
 fi
 
 if [[ "$SYSTEM" == "glinux" ]]; then

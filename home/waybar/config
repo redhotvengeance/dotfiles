@@ -1,22 +1,21 @@
 // -*- mode: jsonc -*-
 {
+    "reload_style_on_change": true,
     "layer": "top",
-    "position": "bottom",
-    "margin": 0,
+    "position": "top",
+    "margin-top": 4,
     "spacing": 0,
     "modules-left": [
         "hyprland/submap",
         "hyprland/workspaces",
-        "hyprland/window",
+        "hyprland/window"
     ],
     "modules-right": [
         "pulseaudio",
-        "backlight",
         "network",
         "battery",
         "cpu",
         "temperature",
-        "memory",
         "clock"
     ],
     "hyprland/workspaces": {
@@ -29,62 +28,63 @@
       "show-special": true,
       "special-visible-only": true
     },
-    "backlight": {
-      "format": "DIS {percent}%",
-      "tooltip": false
-    },
     "pulseaudio": {
-      "format": "VOL {volume}%",
-      "format-bluetooth": "VOL {volume}% ",
-      "format-bluetooth-muted": "VOL --% ",
-      "format-muted": "VOL --%",
-      "format-source-muted": "VOL --% ",
-      "format-source": "VOL {volume}% ",
+      "format": "{icon}",
+      "format-muted": "",
+      "format-bluetooth": "{icon} ",
+      "format-bluetooth-muted": " ",
       "format-icons": {
         "headphone": "",
-        "hands-free": "",
-        "headset": "",
-        "phone": "",
-        "portable": "",
-        "car": "",
-        "default": ["", "", ""]
+        "default": ["", ""]
       },
-      "tooltip": false
+      "tooltip-format": "{volume}%"
     },
     "network": {
-      "format-wifi": "W: {ipaddr}/{cidr} ({signalStrength}%)",
-      "format-ethernet": "E: {ipaddr}/{cidr}",
-      "tooltip-format-wifi": "{essid}",
-      "format-disconnected": "DISCONNECTED",
+      "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
+      "format-wifi": "{icon}",
+      "format-ethernet": "󰀂",
+      "tooltip-format-wifi": "{essid} {signalStrength}% {ipaddr}/{cidr}",
+      "tooltip-format-ethernet": "{ipaddr}/{cidr}",
+      "format-disconnected": "󰖪",
       "family": "ipv4"
     },
     "battery": {
-      "states": {
-        "critical": 15
+      "format": "{icon}",
+      "format-discharging": "{icon}",
+      "format-charging": "{icon}",
+      "format-plugged": "",
+      "format-icons": {
+        "charging": [
+          "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"
+        ],
+        "default": [
+          "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"
+        ]
       },
-      "format": "BAT {capacity}% {time}",
-      "format-charging": "BAT {capacity}%  {time}",
-      "format-plugged": "BAT {capacity}% ",
-      "format-time": "{H}:{m}",
-      "interval": 10,
-      "tooltip": false
+      "format-full": "󰂅",
+      "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}% {time}",
+      "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}% {time}",
+      "interval": 5,
+      "states": {
+        "warning": 20,
+        "critical": 10
+      }
     },
     "cpu": {
-      "format": "CPU {usage}%",
-      "tooltip": false
+      "interval": 1,
+      "format": "{icon}",
+      "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
     },
     "temperature": {
+      "format": "{icon}",
+      "format-icons": ["", "", "", "", ""],
       "critical-threshold": 80,
-      "format": "{temperatureC}°C",
-      "tooltip": false
-    },
-    "memory": {
-      "format": "MEM {}%"
+      "tooltip": true
     },
     "clock": {
       "timezone": "America/Los_Angeles",
       "tooltip-format": "<tt><small>{calendar}</small></tt>",
-      "format": "{:%Y-%m-%d %H:%M:%S}",
+      "format": "{:%d %a %H:%M:%S}",
       "interval": 1
     }
 }
