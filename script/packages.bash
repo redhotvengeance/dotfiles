@@ -5,10 +5,6 @@ function apt {
   $cmd sudo apt install --yes "$@"
 }
 
-function flatpak {
-  $cmd sudo flatpak install --or-update --assumeyes "$@"
-}
-
 function nix {
   $cmd "$(which nix)" profile install "nixpkgs#$1"
   $cmd "$(which nix)" profile upgrade "$([ $2 ] && echo $2 || echo $1)"
