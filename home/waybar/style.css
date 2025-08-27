@@ -1,36 +1,28 @@
 * {
     font-family: MesloLGS Nerd Font Propo, monospace;
     font-size: 12px;
+    font-weight: 400;
     color: #e0def4;
     border-radius: 0;
 }
 
 window#waybar {
-    background: transparent;
-}
-
-.modules-left {
-    margin-left: 4px;
+    background-color: rgba(31, 29, 46, 0.9);
 }
 
 .modules-right {
-    font-weight: 600;
-    background-color: rgba(31, 29, 46, 0.65);
-    margin-right: 4px;
-    padding: 0 6px;
-    border-radius: 14px;
+    padding: 4px 8px;
 }
 
 #workspaces button {
-    font-weight: 600;
-    background-color: rgba(31, 29, 46, 0.65);
-    padding: 0 6px;
+    padding: 0 4px;
     border: none;
     box-shadow: none;
 }
 
 #workspaces button.active {
     background: rgba(144, 140, 170, 0.65);
+    font-weight: 600;
 }
 
 #workspaces button:hover {
@@ -39,22 +31,9 @@ window#waybar {
     box-shadow: none;
 }
 
-#workspaces>button:first-child {
-    padding-left: 10px;
-    border-radius: 14px 0 0 14px;
-}
-
-window#waybar.empty #workspaces button:last-child {
-    padding-right: 10px;
-    border-radius: 0 14px 14px 0;
-}
-
 #window {
-    font-weight: 400;
-    background-color: rgba(31, 29, 46, 0.65);
     padding-left: 8px;
     padding-right: 16px;
-    border-radius: 0 14px 14px 0;
 }
 
 window#waybar.empty #window {
@@ -73,13 +52,19 @@ window#waybar.empty #window {
 }
 
 #pulseaudio,
+#backlight,
 #network,
 #battery,
 #cpu,
 #temperature,
 #tray,
 #clock {
-    padding: 0 10px;
+    border-left: 1px solid rgba(144, 140, 170, 0.5);
+    padding: 0 12px;
+}
+
+#pulseaudio {
+  border-left: none;
 }
 
 #pulseaudio.muted {
@@ -123,13 +108,18 @@ window#waybar.empty #window {
 }
 
 #cpu {
-    padding-right: 2px;
+    padding-right: 4px;
 }
 
 #temperature {
-    padding-left: 2px;
+    border-left: none;
+    padding-left: 4px;
 }
 
 #temperature.critical {
     color: #eb6f92;
+}
+
+#clock {
+  padding-right: 0px;
 }

@@ -2,8 +2,7 @@
 {
     "reload_style_on_change": true,
     "layer": "top",
-    "position": "top",
-    "margin-top": 4,
+    "position": "bottom",
     "spacing": 0,
     "modules-left": [
         "hyprland/submap",
@@ -12,6 +11,7 @@
     ],
     "modules-right": [
         "pulseaudio",
+        "backlight",
         "network",
         "battery",
         "cpu",
@@ -29,41 +29,30 @@
       "special-visible-only": true
     },
     "pulseaudio": {
-      "format": "{icon}",
-      "format-muted": "",
-      "format-bluetooth": "{icon} ",
-      "format-bluetooth-muted": " ",
-      "format-icons": {
-        "headphone": "",
-        "default": ["", ""]
-      },
-      "tooltip-format": "{volume}%"
+      "format": "VOL {volume}%",
+      "format-muted": " --%",
+      "format-bluetooth": "VOL {volume}% ",
+      "format-bluetooth-muted": "  --% ",
+      "tooltip": false
+    },
+    "backlight": {
+      "format": "DIS {percent}%",
+      "tooltip": false
     },
     "network": {
-      "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
-      "format-wifi": "{icon}",
-      "format-ethernet": "󰀂",
-      "tooltip-format-wifi": "{essid} {signalStrength}% {ipaddr}/{cidr}",
-      "tooltip-format-ethernet": "{ipaddr}/{cidr}",
-      "format-disconnected": "󰖪",
+      "format-wifi": "W {ipaddr}/{cidr}",
+      "format-ethernet": "E {ipaddr}/{cidr}",
+      "tooltip-format-wifi": "{essid} {signalStrength}%",
+      "format-disconnected": "¯\\_(ツ)_/¯",
       "family": "ipv4"
     },
     "battery": {
-      "format": "{icon}",
-      "format-discharging": "{icon}",
-      "format-charging": "{icon}",
-      "format-plugged": "",
-      "format-icons": {
-        "charging": [
-          "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"
-        ],
-        "default": [
-          "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"
-        ]
-      },
-      "format-full": "󰂅",
-      "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}% {time}",
-      "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}% {time}",
+      "format": "BAT {capacity}% {time}",
+      "format-charging": "BAT {capacity}% 󱐋 {time}",
+      "format-plugged": "BAT {capacity}% ",
+      "format-time": "{H}:{m}",
+      "tooltip-format-discharging": "{power:>1.0f}W↓",
+      "tooltip-format-charging": "{power:>1.0f}W↑",
       "interval": 5,
       "states": {
         "warning": 20,
@@ -71,15 +60,15 @@
       }
     },
     "cpu": {
-      "interval": 1,
-      "format": "{icon}",
-      "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+      "interval": 2,
+      "format": "CPU {usage}%",
+      "tooltip": true
     },
     "temperature": {
-      "format": "{icon}",
-      "format-icons": ["", "", "", "", ""],
+      "interval": 2,
+      "format": "{temperatureC}°C",
       "critical-threshold": 80,
-      "tooltip": true
+      "tooltip": false
     },
     "clock": {
       "timezone": "America/Los_Angeles",
