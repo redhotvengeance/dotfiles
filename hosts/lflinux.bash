@@ -20,7 +20,6 @@ export PACKAGES=(
   ripgrep
   rofi
   slack
-  swayosd
   tmux
   uwsm
   waybar

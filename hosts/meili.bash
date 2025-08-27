@@ -18,7 +18,6 @@ export PACKAGES=(
   neovim
   ripgrep
   rofi
-  swayosd
   tmux
   uwsm
   waybar
