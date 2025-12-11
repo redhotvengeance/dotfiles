@@ -51,3 +51,5 @@ for h in "${PACKAGES[@]}"; do
 done
 
 link "$DOTFILES_DIR" "$HOME/.dotfiles"
+
+update-desktop-database "$HOME/.local/share/applications"
