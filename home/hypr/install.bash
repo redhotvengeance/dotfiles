@@ -16,7 +16,7 @@ if [[ "$SYSTEM" == "arch" ]]; then
   pacman hypridle
   pacman hyprlock
   pacman hyprpaper
-  pull_or_clone https://github.com/Gustash/hyprshot.git "$SOURCE_DIR/hyprshot"
+  pacman grim slurp swappy
 
   make_monitors
 fi
