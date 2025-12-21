@@ -22,6 +22,7 @@ export PACKAGES=(
   rofi
   slack
   tailscale
+  tldr
   tmux
   uwsm
   walker

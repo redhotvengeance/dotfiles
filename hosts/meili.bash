@@ -22,6 +22,7 @@ export PACKAGES=(
   ripgrep
   rofi
   tailscale
+  tldr
   tmux
   uwsm
   walker
