@@ -20,6 +20,7 @@ export PACKAGES=(
   ripgrep
   rofi
   slack
+  tailscale
   tmux
   uwsm
   walker

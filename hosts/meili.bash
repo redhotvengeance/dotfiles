@@ -20,6 +20,7 @@ export PACKAGES=(
   neovim
   ripgrep
   rofi
+  tailscale
   tmux
   uwsm
   walker
