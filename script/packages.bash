@@ -14,6 +14,10 @@ function pacman {
   $cmd sudo pacman --sync --needed --noconfirm "$@"
 }
 
+function paru {
+  $cmd "$(which paru)" --sync --needed --noconfirm "$@"
+}
+
 function pull_or_clone {
   if [[ -d "$2" ]]; then
     $cmd git -C "$2" pull
