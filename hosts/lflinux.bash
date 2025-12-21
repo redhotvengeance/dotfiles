@@ -9,7 +9,6 @@ export PACKAGES=(
   direnv
   discord
   eza
-  firefox
   fzf
   ghostty
   git

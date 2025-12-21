@@ -5,6 +5,7 @@ export PACKAGES=(
   paru # start with paru so it's available to the other packages
 
   bat
+  chromium
   direnv
   discord
   emacs
