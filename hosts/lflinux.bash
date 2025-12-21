@@ -15,6 +15,7 @@ export PACKAGES=(
   hypr
   json
   less
+  lidm
   mako
   neovim
   ripgrep
