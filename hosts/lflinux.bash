@@ -23,6 +23,7 @@ export PACKAGES=(
   slack
   tmux
   uwsm
+  walker
   waybar
   xh
   yazi

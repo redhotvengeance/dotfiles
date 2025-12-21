@@ -21,6 +21,7 @@ export PACKAGES=(
   rofi
   tmux
   uwsm
+  walker
   waybar
   xh
   yazi
