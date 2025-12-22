@@ -2,7 +2,7 @@ vim.pack.add({
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 })
 
-require "nvim-treesitter.configs".setup({
+require "nvim-treesitter".setup({
   auto_install = true,
   ensure_installed = {
     "bash",
