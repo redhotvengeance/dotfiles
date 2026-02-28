@@ -2,11 +2,11 @@
 source "$SCRIPT_DIR/packages.bash"
 
 if [[ "$SYSTEM" == "arch" || "$SYSTEM" == "cachy" ]]; then
-  if [[ ! $(which nix) ]]; then
+  if ! type -P nix; then
     if [[ "$dry" == "1" ]]; then
-      echo [DRY RUN]: "curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install"
+      echo "[DRY RUN]: curl -fsSL https://install.determinate.systems/nix | sh -s -- install"
     else
-      curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+      curl -fsSL https://install.determinate.systems/nix | sh -s -- install
     fi
   fi
 fi
