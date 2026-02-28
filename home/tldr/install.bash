@@ -2,5 +2,5 @@
 source "$SCRIPT_DIR/packages.bash"
 
 if [[ "$SYSTEM" == "arch" || "$SYSTEM" == "cachy" ]]; then
-  pacman tldr
+  pacman tealdeer
 fi
