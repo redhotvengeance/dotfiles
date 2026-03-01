@@ -4,19 +4,15 @@ source "$SCRIPT_DIR/packages.bash"
 function make_monitors {
   source "$HELPERS_DIR/monitors.bash"
 
-  echo "monitor = , preferred, auto, ${scale[$CURR_HOST]}" > "$HOME_DIR/hypr/monitors.conf"
+  echo "monitor = , preferred, auto, ${scale[$CURR_HOST]}" > "$HOME_DIR/hyprland/monitors.conf"
 
   for m in "${external[@]}"; do
-    echo "monitor = desc:$m, ${res[$m]}, auto, ${scale[$m]}" >> "$HOME_DIR/hypr/monitors.conf"
+    echo "monitor = desc:$m, ${res[$m]}, auto, ${scale[$m]}" >> "$HOME_DIR/hyprland/monitors.conf"
   done
 }
 
-if [[ "$SYSTEM" == "arch" ]]; then
+if [[ "$SYSTEM" == "arch" || "$SYSTEM" == "cachy" ]]; then
   pacman hyprland hyprpolkitagent xdg-desktop-portal-hyprland xdg-desktop-portal-gtk wireplumber brightnessctl
-  pacman hypridle
-  pacman hyprlock
-  pacman hyprpaper
-  pacman grim slurp swappy
 
   make_monitors
 fi

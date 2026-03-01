@@ -12,7 +12,10 @@ export PACKAGES=(
   fzf
   ghostty
   git
-  hypr
+  hypridle
+  hyprland
+  hyprlock
+  hyprpaper
   json
   less
   lidm
