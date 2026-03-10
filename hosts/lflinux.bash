@@ -15,7 +15,6 @@ export PACKAGES=(
   hypridle
   hyprland
   hyprlock
-  hyprpaper
   json
   less
   lidm
@@ -23,6 +22,7 @@ export PACKAGES=(
   neovim
   ripgrep
   slack
+  swww
   tailscale
   tldr
   tmux
