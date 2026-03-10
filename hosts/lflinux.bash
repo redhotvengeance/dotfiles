@@ -22,13 +22,12 @@ export PACKAGES=(
   mako
   neovim
   ripgrep
-  rofi
   slack
   tailscale
   tldr
   tmux
+  tofi
   uwsm
-  walker
   waybar
   xh
   yazi
