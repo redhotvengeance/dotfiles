@@ -12,7 +12,13 @@ function make_monitors {
 }
 
 if [[ "$SYSTEM" == "arch" || "$SYSTEM" == "cachy" ]]; then
-  pacman hyprland hyprpolkitagent xdg-desktop-portal-hyprland xdg-desktop-portal-gtk wireplumber brightnessctl
+  pacman wireplumber pipewire pipewire-pulse
+  pacman brightnessctl
+  pacman playerctl
+  pacman wl-clipboard cliphist wl-clip-persist
+  pacman xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk
+  pacman hyprpolkitagent qt5-wayland qt6-wayland
+  pacman hyprland
 
   make_monitors
 fi
