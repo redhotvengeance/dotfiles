@@ -1,4 +1,4 @@
-export SYSTEM="arch"
+export SYSTEM="cachy"
 
 export PACKAGES=(
   nix # start with nix so it's available to the other packages
