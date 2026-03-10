@@ -17,7 +17,6 @@ export PACKAGES=(
   hyprlock
   json
   less
-  lidm
   mako
   matugen
   neovim
