@@ -1,0 +1,13 @@
+[config]
+
+[templates.ghostty]
+input_path = "~/.dotfiles/home/matugen/templates/ghostty"
+output_path = "~/.cache/matugen/ghostty"
+
+[templates.hyprland]
+input_path = "~/.dotfiles/home/matugen/templates/hyprland-colors.conf"
+output_path = "~/.cache/matugen/hyprland-colors.conf"
+
+[templates.waybar]
+input_path = "~/.dotfiles/home/matugen/templates/waybar.css"
+output_path = "~/.cache/matugen/waybar.css"

@@ -16,3 +16,5 @@ palette = 4=#9ccfd8
 palette = 12=#9ccfd8
 
 selection-background = #403d52
+
+config-file = ~/.cache/matugen/ghostty

@@ -1,13 +1,23 @@
+@define-color error #eb6f92;
+@define-color on-error #eb6f92;
+@define-color primary #908caa;
+@define-color surface #1f1d2e;
+@define-color on-surface #e0def4;
+@define-color surface-variant #6e6a86;
+@define-color on-tertiary #f6c177;
+
+@import url("file:///home/ian/.cache/matugen/waybar.css");
+
 * {
     font-family: MesloLGS Nerd Font Propo, monospace;
     font-size: 12px;
     font-weight: 400;
-    color: #e0def4;
+    color: @on-surface;
     border-radius: 0;
 }
 
 window#waybar {
-    background-color: rgba(31, 29, 46, 0.9);
+    background-color: alpha(@surface, 0.85);
 }
 
 .modules-right {
@@ -21,12 +31,20 @@ window#waybar {
 }
 
 #workspaces button.active {
-    background: rgba(144, 140, 170, 0.65);
+    background: alpha(@primary, 0.65);
+    color: @on-primary;
+    font-weight: 600;
+}
+
+#tags button.focused {
+    background: alpha(@primary, 0.65);
+    color: @on-primary;
     font-weight: 600;
 }
 
 #workspaces button:hover {
-    background: rgba(144, 140, 170, 0.65);
+    background: alpha(@primary, 0.65);
+    color: @on-primary;
     border: none;
     box-shadow: none;
 }
@@ -64,20 +82,20 @@ window#waybar.empty #window {
 }
 
 #pulseaudio {
-  border-left: none;
+    border-left: none;
 }
 
 #pulseaudio.muted {
-    color: rgb(110, 106, 134);
+    color: @surface-variant;
 }
 
 #network.disconnected {
-    color: #eb6f92;
+    color: @error;
 }
 
 @keyframes warning-blink {
     to {
-        color: rgba(246, 193, 119, 0.5);
+        color: alpha(@on-tertiary, 0.5);
     }
 }
 
@@ -88,12 +106,12 @@ window#waybar.empty #window {
     animation-timing-function: steps(24);
     animation-iteration-count: infinite;
     animation-direction: alternate;
-    color: rgba(246, 193, 119, 1);
+    color: @on-tertiary;
 }
 
 @keyframes critical-blink {
     to {
-        color: rgba(235, 111, 146, 0.25);
+        color: alpha(@on-error, 0.25);
     }
 }
 
@@ -104,7 +122,8 @@ window#waybar.empty #window {
     animation-timing-function: steps(12);
     animation-iteration-count: infinite;
     animation-direction: alternate;
-    color: rgba(235, 111, 146, 1);
+    background-color: @error;
+    color: @on-error;
 }
 
 #cpu {
@@ -117,9 +136,9 @@ window#waybar.empty #window {
 }
 
 #temperature.critical {
-    color: #eb6f92;
+    color: @on-error;
 }
 
 #clock {
-  padding-right: 0px;
+    padding-right: 0px;
 }

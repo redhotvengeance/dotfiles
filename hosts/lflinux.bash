@@ -19,6 +19,7 @@ export PACKAGES=(
   less
   lidm
   mako
+  matugen
   neovim
   ripgrep
   slack
