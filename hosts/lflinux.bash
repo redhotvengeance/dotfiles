@@ -17,6 +17,7 @@ export PACKAGES=(
   hyprlock
   json
   less
+  localsend
   mako
   matugen
   neovim
