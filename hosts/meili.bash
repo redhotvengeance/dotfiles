@@ -24,6 +24,7 @@ export PACKAGES=(
   neovim
   qutebrowser
   ripgrep
+  steam
   swww
   tailscale
   tldr
