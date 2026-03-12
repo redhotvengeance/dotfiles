@@ -1,4 +1,5 @@
-export SYSTEM="arch"
+export GPU="amd"
+export SYSTEM="cachy"
 
 export PACKAGES=(
   nix # start with nix so it's available to the other packages
@@ -8,7 +9,6 @@ export PACKAGES=(
   chromium
   direnv
   discord
-  emacs
   eza
   fzf
   ghostty
@@ -16,19 +16,20 @@ export PACKAGES=(
   hypridle
   hyprland
   hyprlock
-  hyprpaper
   json
   less
-  lidm
+  localsend
   mako
+  matugen
   neovim
+  qutebrowser
   ripgrep
-  rofi
+  swww
   tailscale
   tldr
   tmux
+  tofi
   uwsm
-  walker
   waybar
   xh
   yazi
