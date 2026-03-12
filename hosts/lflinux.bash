@@ -1,3 +1,5 @@
+export CONTEXT="work"
+export GPU="amd"
 export SYSTEM="cachy"
 
 export PACKAGES=(
