@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=qutebrowser (Personal)
+GenericName=Web Browser
+Exec=sh -c 'qutebrowser --basedir "$HOME/.local/share/qutebrowser-personal" "$@"' sh %u
+Icon=qutebrowser
+Type=Application
+Terminal=false
+Categories=Network;WebBrowser;
