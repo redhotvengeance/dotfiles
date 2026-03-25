@@ -20,6 +20,7 @@ export PACKAGES=(
   json
   less
   localsend
+  lsp
   mako
   matugen
   neovim
