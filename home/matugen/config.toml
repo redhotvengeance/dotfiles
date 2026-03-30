@@ -8,6 +8,11 @@ output_path = "~/.cache/matugen/ghostty"
 input_path = "~/.dotfiles/home/matugen/templates/hyprland-colors.conf"
 output_path = "~/.cache/matugen/hyprland-colors.conf"
 
+[templates.qutebrowser]
+input_path = "~/.dotfiles/home/matugen/templates/qutebrowser.py"
+output_path = "~/.cache/matugen/qutebrowser.py"
+post_hook = "~/.dotfiles/home/qutebrowser/bin/qreload"
+
 [templates.waybar]
 input_path = "~/.dotfiles/home/matugen/templates/waybar.css"
 output_path = "~/.cache/matugen/waybar.css"

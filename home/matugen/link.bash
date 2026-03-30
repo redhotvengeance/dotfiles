@@ -6,5 +6,6 @@ if [[ "$SYSTEM" == "arch" || "$SYSTEM" == "cachy" ]]; then
 
   touch "$HOME/.cache/matugen/ghostty"
   touch "$HOME/.cache/matugen/hyprland-colors.conf"
+  touch "$HOME/.cache/matugen/qutebrowser.py"
   touch "$HOME/.cache/matugen/waybar.css"
 fi

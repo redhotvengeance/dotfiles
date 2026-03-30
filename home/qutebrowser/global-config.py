@@ -1,4 +1,11 @@
+import os
+
 config.load_autoconfig(False)
+
+matugen_colors = os.path.expanduser('~/.cache/matugen/qutebrowser.py')
+
+if os.path.exists(matugen_colors):
+    config.source(matugen_colors)
 
 c.colors.webpage.darkmode.enabled = True
 

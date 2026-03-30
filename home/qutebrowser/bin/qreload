@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+shopt -s nullglob
+
+RUNTIME_DIRS=(
+  "$HOME/.local/share/qutebrowser-personal/runtime"
+  "$HOME/.local/share/qutebrowser-work/runtime"
+)
+
+for dir in "${RUNTIME_DIRS[@]}"; do
+  for socket in "$dir"/ipc-*; do
+    if [[ -S "$socket" ]]; then
+      echo '{"args":[":config-source"], "target_arg":"", "protocol_version":1}' | socat - UNIX-CONNECT:"$socket"
+    fi
+  done
+done
