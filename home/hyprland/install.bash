@@ -19,6 +19,7 @@ if [[ "$SYSTEM" == "arch" || "$SYSTEM" == "cachy" ]]; then
   pacman xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk
   pacman hyprpolkitagent qt5-wayland qt6-wayland
   pacman jq
+  pacman grim slurp swappy
   pacman hyprland
 
   make_monitors
