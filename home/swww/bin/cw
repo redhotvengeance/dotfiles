@@ -13,7 +13,7 @@ swww img "$WALLPAPER" --transition-type fade --transition-fps 120 --transition-d
 magick "$WALLPAPER" -resize 400x400\> /tmp/matugen_sample.jpg
 
 # Make color palette from sampled wallpaper
-if matugen image /tmp/matugen_sample.jpg --type scheme-fidelity; then
+if matugen image /tmp/matugen_sample.jpg --type scheme-fidelity --source-color-index 0; then
   # Reload waybar styles
   cp ~/.dotfiles/home/waybar/style.css ~/.dotfiles/home/waybar/style.css.tmp
   mv ~/.dotfiles/home/waybar/style.css.tmp ~/.dotfiles/home/waybar/style.css
