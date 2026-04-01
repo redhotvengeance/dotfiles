@@ -26,7 +26,8 @@ c.url.searchengines = {
     'arch': 'https://archlinux.org/packages/?q={}',
     'aur': 'https://aur.archlinux.org/packages/?K={}',
     'cachy': 'https://packages.cachyos.org/?search={}',
-    'nix': 'https://search.nixos.org/packages?channel=unstable&query={}'
+    'nix': 'https://search.nixos.org/packages?channel=unstable&query={}',
+    'red': 'https://www.reddit.com/search?q={}'
 }
 c.url.start_pages = 'about:blank'
 
