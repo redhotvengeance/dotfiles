@@ -3,10 +3,12 @@
 [templates.ghostty]
 input_path = "~/.dotfiles/home/matugen/templates/ghostty"
 output_path = "~/.cache/matugen/ghostty"
+post_hook = "killall -SIGUSR2 ghostty"
 
 [templates.hyprland]
 input_path = "~/.dotfiles/home/matugen/templates/hyprland-colors.conf"
 output_path = "~/.cache/matugen/hyprland-colors.conf"
+post_hook = "hyprctl reload"
 
 [templates.qutebrowser]
 input_path = "~/.dotfiles/home/matugen/templates/qutebrowser.py"

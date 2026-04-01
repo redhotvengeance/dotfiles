@@ -14,15 +14,9 @@ magick "$WALLPAPER" -resize 400x400\> /tmp/matugen_sample.jpg
 
 # Make color palette from sampled wallpaper
 if matugen image /tmp/matugen_sample.jpg --type scheme-fidelity --source-color-index 0; then
-  # Reload waybar styles
+  # Reload waybar styles (avoids waybar flashing when sending a SIGUSR2)
   cp ~/.dotfiles/home/waybar/style.css ~/.dotfiles/home/waybar/style.css.tmp
   mv ~/.dotfiles/home/waybar/style.css.tmp ~/.dotfiles/home/waybar/style.css
-
-  # Reload ghostty styles
-  killall -SIGUSR2 ghostty
-
-  # Reload hyprland styles
-  hyprctl reload
 else
   echo "Matugen failed to parse the image. Keeping current colors."
   exit 1
