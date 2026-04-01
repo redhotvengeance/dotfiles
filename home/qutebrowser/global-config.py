@@ -8,6 +8,11 @@ if os.path.exists(matugen_colors):
     config.source(matugen_colors)
 
 c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.preferred_color_scheme = "dark"
+config.bind('td', 'config-cycle colors.webpage.darkmode.enabled ;; reload')
+config.set('colors.webpage.darkmode.enabled', False, '*://calendar.google.com/*')
+config.set('colors.webpage.darkmode.enabled', False, '*://docs.google.com/*')
+config.set('colors.webpage.darkmode.enabled', False, '*://www.figma.com/*')
 
 c.content.autoplay = False
 c.content.desktop_capture = 'ask'
