@@ -26,7 +26,7 @@ export PACKAGES=(
   qutebrowser
   ripgrep
   steam
-  swww
+  awww
   tailscale
   tldr
   tmux

@@ -27,7 +27,7 @@ export PACKAGES=(
   qutebrowser
   ripgrep
   slack
-  swww
+  awww
   tailscale
   tldr
   tmux

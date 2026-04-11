@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 WALLPAPER_DIR="$HOME/wallpapers/"
-CURRENT_WALL=$(swww query | grep -o "/.*" | head -n 1)
+CURRENT_WALL=$(awww query | grep -o "/.*" | head -n 1)
 
 # Get a random wallpaper that is not the current one
 WALLPAPER=$(find "$WALLPAPER_DIR" -mindepth 1 -maxdepth 1 -type f -name "*.jpeg" ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
 
 # Apply the selected wallpaper
-swww img "$WALLPAPER" --transition-type fade --transition-fps 120 --transition-duration 5
+awww img "$WALLPAPER" --transition-type fade --transition-fps 120 --transition-duration 5
 
 # Downsize for sampling
 magick "$WALLPAPER" -resize 400x400\> /tmp/matugen_sample.jpg
