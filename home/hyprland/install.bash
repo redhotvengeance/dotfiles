@@ -20,6 +20,7 @@ if [[ "$SYSTEM" == "arch" || "$SYSTEM" == "cachy" ]]; then
   pacman hyprpolkitagent qt5-wayland qt6-wayland
   pacman jq
   pacman grim slurp swappy
+  paru auto-cpufreq
   pacman hyprland
 
   make_monitors

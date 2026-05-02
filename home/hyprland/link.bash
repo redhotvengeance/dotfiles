@@ -7,4 +7,5 @@ if [[ "$SYSTEM" == "arch" || "$SYSTEM" == "cachy" ]]; then
   link "$HOME_DIR/hyprland/env-hyprland" "$HOME/.config/uwsm/env-hyprland"
 
   $cmd systemctl --user enable --now hyprpolkitagent.service
+  $cmd systemctl enable --now auto-cpufreq.service
 fi
