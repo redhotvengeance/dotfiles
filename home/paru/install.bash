@@ -3,7 +3,7 @@ source "$SCRIPT_DIR/packages.bash"
 
 if [[ "$SYSTEM" == "arch" ]]; then
   # dependencies
-  pacman base-devel
+  pacman base-devel rustup
 
   out=$(pull_or_clone https://aur.archlinux.org/paru.git "$SOURCE_DIR/paru" master)
   if [[ "$out" != "Already up to date." ]]; then
