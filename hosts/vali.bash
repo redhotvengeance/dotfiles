@@ -29,6 +29,7 @@ export PACKAGES=(
   tmux
   tofi
   uwsm
+  vivaldi
   waybar
   xh
   yazi
