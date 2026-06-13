@@ -20,7 +20,6 @@ export PACKAGES=(
   mako
   matugen
   neovim
-  qutebrowser
   ripgrep
   steam
   awww
