@@ -53,4 +53,4 @@ done
 
 link "$DOTFILES_DIR" "$HOME/.dotfiles"
 
-update-desktop-database "$HOME/.local/share/applications"
+$cmd update-desktop-database "$HOME/.local/share/applications"

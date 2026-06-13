@@ -5,7 +5,7 @@ if [[ "$SYSTEM" == "arch" ]]; then
   # dependencies
   pacman base-devel rustup
 
-  rustup default stable
+  $cmd rustup default stable
 
   out=$(pull_or_clone https://aur.archlinux.org/paru.git "$SOURCE_DIR/paru" master)
   if [[ "$out" != "Already up to date." ]]; then
