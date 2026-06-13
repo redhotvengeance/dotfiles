@@ -1,6 +1,6 @@
 export CONTEXT="work"
 export GPU="amd"
-export SYSTEM="cachy"
+export SYSTEM="arch"
 
 export PACKAGES=(
   nix # start with nix so it's available to the other packages
