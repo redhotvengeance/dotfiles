@@ -5,6 +5,7 @@ export PACKAGES=(
 
   bat
   direnv
+  elgato
   eza
   fzf
   ghostty
