@@ -9,3 +9,8 @@ if [[ "$SYSTEM" == "glinux" ]]; then
   nix jq
   nix jless
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew jq
+  brew jless
+fi

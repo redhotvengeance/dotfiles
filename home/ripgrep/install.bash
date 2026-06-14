@@ -8,3 +8,7 @@ fi
 if [[ "$SYSTEM" == "glinux" ]]; then
   apt ripgrep
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew ripgrep
+fi

@@ -8,3 +8,7 @@ fi
 if [[ "$SYSTEM" == "glinux" ]]; then
   nix xh
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew xh
+fi

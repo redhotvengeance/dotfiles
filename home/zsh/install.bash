@@ -19,3 +19,9 @@ if [[ "$SYSTEM" == "glinux" ]]; then
 
   change
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew zsh
+
+  change
+fi

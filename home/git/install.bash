@@ -10,3 +10,7 @@ if [[ "$SYSTEM" == "glinux" ]]; then
   apt git
   nix git
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew git
+fi

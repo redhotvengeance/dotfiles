@@ -8,3 +8,7 @@ fi
 if [[ "$SYSTEM" == "glinux" ]]; then
   apt direnv
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew direnv
+fi

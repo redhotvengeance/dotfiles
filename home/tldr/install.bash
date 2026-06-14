@@ -4,3 +4,7 @@ source "$SCRIPT_DIR/packages.bash"
 if [[ "$SYSTEM" == "arch" || "$SYSTEM" == "cachy" ]]; then
   pacman tealdeer
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew tealdeer
+fi

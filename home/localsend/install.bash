@@ -7,3 +7,7 @@ if [[ "$SYSTEM" == "arch" || "$SYSTEM" == "cachy" ]]; then
   $cmd sudo ufw allow 53317
   $cmd sudo ufw reload
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew localsend
+fi

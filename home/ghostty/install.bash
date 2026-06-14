@@ -5,3 +5,7 @@ if [[ "$SYSTEM" == "arch" || "$SYSTEM" == "cachy" ]]; then
   pacman ghostty
   pacman ttf-meslo-nerd
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew ghostty
+fi

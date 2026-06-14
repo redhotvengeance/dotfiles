@@ -10,3 +10,8 @@ if [[ "$SYSTEM" == "glinux" ]]; then
   apt tmux
   pull_or_clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew tmux
+  pull_or_clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi

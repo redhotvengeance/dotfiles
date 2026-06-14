@@ -8,3 +8,7 @@ fi
 if [[ "$SYSTEM" == "glinux" ]]; then
   apt less
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew less
+fi

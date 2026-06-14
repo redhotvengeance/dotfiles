@@ -18,3 +18,9 @@ if [[ "$SYSTEM" == "glinux" ]]; then
     $cmd sudo make install
   fi
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew bob
+  $cmd bob use nightly
+  $cmd bob update --all
+fi

@@ -8,3 +8,7 @@ fi
 if [[ "$SYSTEM" == "glinux" ]]; then
   apt eza
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew eza
+fi

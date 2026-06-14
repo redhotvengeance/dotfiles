@@ -8,3 +8,7 @@ fi
 if [[ "$SYSTEM" == "glinux" ]]; then
   nix bat
 fi
+
+if [[ "$SYSTEM" == "macos" ]]; then
+  brew bat
+fi
