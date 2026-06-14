@@ -13,6 +13,7 @@ export PACKAGES=(
   less
   localsend
   neovim
+  obs
   ripgrep
   tldr
   tmux

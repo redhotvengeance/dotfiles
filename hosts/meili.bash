@@ -23,6 +23,7 @@ export PACKAGES=(
   mako
   matugen
   neovim
+  obs
   ripgrep
   steam
   awww

@@ -24,6 +24,7 @@ export PACKAGES=(
   mako
   matugen
   neovim
+  obs
   ripgrep
   slack
   awww
