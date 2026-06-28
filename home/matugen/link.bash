@@ -4,6 +4,7 @@ if [[ "$SYSTEM" == "arch" || "$SYSTEM" == "cachy" ]]; then
 
   link "$HOME_DIR/matugen/config.toml" "$HOME/.config/matugen/config.toml"
 
+  touch "$HOME/.cache/matugen/emacs-ui.el"
   touch "$HOME/.cache/matugen/ghostty"
   touch "$HOME/.cache/matugen/hyprland-colors.conf"
   touch "$HOME/.cache/matugen/qutebrowser.py"

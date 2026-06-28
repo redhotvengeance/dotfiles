@@ -1,5 +1,10 @@
 [config]
 
+[templates.emacs]
+input_path = "~/.dotfiles/home/matugen/templates/emacs-ui.el"
+output_path = "~/.cache/matugen/emacs-ui.el"
+post_hook = "emacsclient -e '(load-file (expand-file-name \"~/.cache/matugen/emacs-ui.el\"))'"
+
 [templates.ghostty]
 input_path = "~/.dotfiles/home/matugen/templates/ghostty"
 output_path = "~/.cache/matugen/ghostty"

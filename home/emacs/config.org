@@ -1,0 +1,1030 @@
+# -*- lexical-binding: t; -*-
+#+PROPERTY: header-args :results silent
+
+#+title: Literate Emacs Configuration
+#+author: redhotvengeance
+
+This is my Emacs config! If you're reading this (especially in a browser), you may assume I mean it is an /explanation/ of my Emacs config...but actually, while it *is* an explanation, it is also the config itself! Emacs has the ability to read elisp blocks from within an org file and execute them, so my =init.el= file points at this org file and loads it as the running config for Emacs itself. That turns this into a /literate/ configuration file, and lets me combine prose and configuration code into place!
+
+Enjoy reading and/or lifting parts of the config for your own!
+
+* Package Management
+** straight.el
+Emacs has a built-in package manager (=package.el=) but it sources from ELPA. Instead, let's use =straight.el= which allows us to pull directly from Git repos.
+
+#+begin_src elisp
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+#+end_src
+
+** use-package integration
+Wire =straight.el= directly into =use-package= so we can declaratively configure our plugins.
+
+#+begin_src elisp
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
+#+end_src
+
+Ideally, this config should be segmented into isolated topics. However, we need to make an exception in this case. Specifically, we need to make sure we're using the =straight.el= versions of =org=, =transient=, and =magit= before any package tries to reference them.
+
+#+begin_src elisp
+(straight-use-package '(org :type built-in))
+(straight-use-package 'transient)
+(straight-use-package 'magit)
+#+end_src
+
+* Performance & Core Defaults
+** Garbage Collector Magic Hack
+A common complaint about Emacs is that it can be slow to boot, and even slow (at times) during use. Let's use a "hack" that dynamically shifts Emacs's memory allocation to help prevent performance degredation.
+
+#+begin_src elisp
+(use-package gcmh
+  :straight t
+  :demand t
+  :config
+  (gcmh-mode 1))
+#+end_src
+
+** Performance Tuning
+Let's make it so Emacs doesn't choke when language servers send massive JSON payloads.
+
+#+begin_src elisp
+;; Increase read chunk size to 4MB so LSPs don't choke.
+(setq read-process-output-max (* 1024 1024 4))
+#+end_src
+
+** Stop the yapping
+When you open an Emacs window, it'll open a split buffer if there are any compilation warnings. The warnings usually do not need to be addressed, so it's just a bunch of noise that can be eliminated.
+
+#+begin_src elisp
+(setq native-comp-async-report-warnings-errors 'silent)
+#+end_src
+
+* Sane Defaults
+Here we configure the core behavior of Emacs, removing UI clutter and stopping the editor from littering our hard drive with backup files.
+
+#+begin_src elisp
+(use-package emacs
+  :ensure nil
+  :custom
+  (make-backup-files nil) ;; stop creating ~ backup files
+  (auto-save-default nil) ;; stop creating # autosave files
+  (create-lockfiles nil) ;; stop creating .# lockfiles
+  (display-line-numbers-type 'relative) ;; counting is slow
+  (display-line-numbers-width-start t) ;; don't grow line gutter as we scroll down
+  (display-line-numbers-grow-only t) ;; don't shrink line gutter as we scroll up
+  (scroll-margin 10) ;; lines of context
+  (scroll-conservatively 101) ;; scroll line-by-line instead of half-page jumps
+  (hscroll-margin 10) ;; columns of context
+  (hscroll-step 1) ;; scroll horizontally 1 col at a time
+  (case-fold-search t) ;; only care about case when searching with case
+  (inhibit-startup-screen t) ;; silence the startup messages
+  (inhibit-startup-message t) ;; seriously, no more startup messages
+  (initial-scratch-message nil) ;; dude, just stop it with the startup messages
+  (use-short-answers t) ;; 'y' or 'n' instead of 'yes' or 'no'
+  (ring-bell-function 'ignore) ;; silence the annoying visual/audio bell
+  (server-client-instructions nil) ;; stfu when emacsclient opens
+  (select-enable-clipboard nil) ;; let evil mode handle the system clipboard
+  (select-enable-primary nil) ;; stop mouse highlighting from polluting the clipboard
+  (context-menu-mode t) ;; enable right-click menus
+  (enable-recursive-minibuffers t) ;; minibuffers on minibuffers on minibuffers
+  (read-extended-command-predicate #'command-completion-default-include-p) ;; hide commands that cannot run
+  (minibuffer-prompt-properties
+   '(read-only t cursor-intangible t face minibuffer-prompt)) ;; prevent editing minibuffer prompt
+  :init
+  (menu-bar-mode -1) ;; buh-bye menu bar
+  (tool-bar-mode -1) ;; see ya, tool bar
+  (scroll-bar-mode -1) ;; gtfo scroll bar
+  (global-display-line-numbers-mode 1) ;; line numbers are kinda important
+  (pixel-scroll-precision-mode 1) ;; smooth scrolling on Wayland
+  (global-auto-revert-mode 1) ;; auto-reload files changed outside Emacs
+  (save-place-mode 1) ;; remember cursor location
+  (recentf-mode 1) ;; remember recent files
+  :config
+  (setq-default indent-tabs-mode nil ;; spaces over tabs
+                tab-width 2 ;; indent by 2 spaces
+                truncate-lines t) ;; line wrapping is bad
+  (electric-pair-mode 1)) ;; auto-close brackets & quotes
+#+end_src
+
+Whitespace is important to see and control. Emacs provides options for this, but groups some stuff together in weird ways. This block forces tabs and nbsp to always show, and trailing spaces to be highlighted. It also automatically strips trailing spaces on save.
+
+#+begin_src elisp
+(use-package whitespace
+  :config
+  (setq whitespace-style '(face tabs tab-mark spaces space-mark))
+  (setq whitespace-display-mappings
+        '((space-mark ?\xA0 [?␣]) ;; Use ␣ to show nbsp
+          (tab-mark ?\t [?» ?\t]))) ;; Use » to show tabs
+
+  ;; There's no non-heavy way to represent ONLY trailing spaces as a character, so we'll use the built-in option and render it as a line instead of the default heavy block.
+  (setq-default show-trailing-whitespace t)
+  (set-face-attribute 'trailing-whitespace nil :background 'unspecified :strike-through "red")
+
+  ;; Set the space regexp to something impossible so that it never matches normal spaces and avoids ever painting spaces in a weird way.
+  (setq whitespace-space-regexp "\\`a\\`")
+
+  (global-whitespace-mode 1)
+
+  (add-hook 'before-save-hook #'delete-trailing-whitespace))
+#+end_src
+
+* UI & Aesthetics
+Now let's adjust the look of Emacs.
+
+** Fonts & Icons
+Set the font to Meslo LG, and icons to the same.
+
+#+begin_src elisp
+(set-face-attribute 'default nil :font "MesloLGS Nerd Font" :height 110)
+(set-face-attribute 'fixed-pitch nil :font "MesloLGS Nerd Font" :height 110)
+
+(use-package nerd-icons
+  :custom
+  (nerd-icons-font-family "MesloLGS Nerd Font"))
+#+end_src
+
+** Theme
+Use =ef-themes= by Prot as the engine for color themes.
+
+#+begin_src elisp
+(use-package ef-themes
+  :ensure t
+  :init
+  (ef-themes-take-over-modus-themes-mode 1)
+  :config
+  (setq modus-themes-mixed-fonts t)
+  (setq modus-themes-bold-constructs t)
+  (setq modus-themes-italic-constructs t)
+
+  (modus-themes-load-theme 'ef-maris-dark))
+#+end_src
+
+** Interface
+Now let's tweak the interface colors to improve the experience and tie it into the system around it. First, we'll make the background slightly transparent so the wallpaper shines through. Then we'll apply Matugen-generated colors to the interface so it matches the desktop.
+
+#+begin_src elisp
+(add-to-list 'default-frame-alist '(alpha-background . 90))
+
+(let ((matugen-file (expand-file-name "~/.cache/matugen/emacs-ui.el")))
+  (when (file-exists-p matugen-file)
+    (load-file matugen-file)))
+#+end_src
+
+* Keybindings
+** Evil Mode
+I suffered too much pounding Vim motions into my fingies just to give them up. Evil mode gives us Vim motions inside Emacs.
+
+#+begin_src elisp
+(setq evil-want-integration t)
+(setq evil-want-keybinding nil)
+(setq evil-want-C-u-scroll t)
+(setq evil-want-C-i-jump t)
+(setq evil-kill-on-visual-paste nil)
+
+(use-package evil
+  :init
+  (setq evil-vsplit-window-right t
+        evil-split-window-below t)
+  :config
+  (evil-mode 1)
+  :custom
+  (evil-undo-system 'undo-redo)
+  :config
+  (defun my/evil-center-screen (&rest _)
+    (evil-scroll-line-to-center nil))
+  (advice-add 'evil-search-next :after #'my/evil-center-screen)
+  (advice-add 'evil-search-previous :after #'my/evil-center-screen)
+  (advice-add 'evil-scroll-down :after #'my/evil-center-screen)
+  (advice-add 'evil-scroll-up :after #'my/evil-center-screen)
+
+  (define-key evil-insert-state-map (kbd "C-S-v") 'clipboard-yank) ;; paste from os clipboard in insert mode
+  (define-key evil-normal-state-map (kbd "<escape>") 'evil-ex-nohighlight)) ;; cancel search highlighting with <esc>
+(use-package evil-collection
+  :after evil
+  :custom
+  (evil-collection-setup-minibuffer t)
+  :config
+  (evil-collection-init))
+#+end_src
+
+** Leader Key
+Use =general.el= to create a leader key (=space=) and then create initial, global keymaps. We'll add more keymaps throughout the rest of the config, too.
+
+#+begin_src elisp
+(use-package general
+  :after evil
+  :config
+  (general-evil-setup t)
+
+  (general-create-definer my/leader-keys
+    :states '(normal insert visual emacs)
+    :prefix "SPC"
+    :non-normal-prefix "C-SPC"))
+
+(my/leader-keys
+  "f" '(:ignore t :wk "file")
+  "f f" '(find-file :wk "find file")
+
+  "b" '(:ignore t :wk "buffer")
+  "b k" '(kill-current-buffer :wk "kill buffer")
+  "b n" '(next-buffer :wk "next buffer")
+  "b p" '(previous-buffer :wk "previous buffer")
+
+  "s" '(:ignore t :wk "search/replace")
+  "s r" '(lambda ()
+           (interactive)
+           (let ((word (thing-at-point 'word t)))
+             (evil-ex (concat "%s/\\<" word "\\>/" word "/g"))))
+
+  "h" '(:ignore t :wk "help")
+  "h h" '(help-command :wk "help command")
+  "h v" '(describe-variable :wk "describe variable")
+  "h f" '(describe-function :wk "describe function")
+  "h k" '(describe-key :wk "describe key")
+
+  "y" '("\"+y" :wk "yank to system clipboard")
+  "Y" '("\"+Y" :wk "yank line to system clipboard")
+  "P" '("\"+p" :wk "paste from system clipboard"))
+#+end_src
+
+** =which-key=
+Nothing like a good cheat sheet! Let's have hints pop up as we start triggering keybinds.
+
+#+begin_src elisp
+(use-package which-key
+  :ensure nil
+  :init
+  (which-key-mode 1)
+  :custom
+  (which-key-idle-delay 0.3))
+#+end_src
+
+=which-key= is normally triggered by hitting the initial key of a keybind, but what if you don't even know what that initial key is? Let's add keybinds to show all possible starts to existing keybinds.
+
+#+begin_src elisp
+(general-def :states '(normal motion visual)
+  "M-?" 'which-key-show-top-level   ;; show all shortcuts available right now
+  "M-/" 'which-key-show-major-mode)  ;; show shortcuts for this specific file mode
+#+end_src
+
+** Dragging
+Sometimes I want to move a line or block up or down in a file, this make it easy to do so.
+
+#+begin_src elisp
+(use-package drag-stuff
+  :init
+  (drag-stuff-global-mode 1)
+  :general
+  (:states 'visual
+           "J" 'drag-stuff-down
+           "K" 'drag-stuff-up))
+#+end_src
+
+* Files and Projects
+** (W)Dired
+Dired is a file manager integrated into Emacs. It displays the file tree as a buffer of text.
+
+#+begin_src elisp
+(use-package dired
+  :straight nil
+  :demand t
+  :custom
+  (dired-kill-when-opening-new-dired-buffer t)
+  (dired-listing-switches "-alho --group-directories-first")
+  :hook
+  (dired-mode . dired-hide-details-mode)
+  :general
+  (my/leader-keys
+    "d" '(dired-jump :wk "dired jump"))
+  (general-def :states '(normal motion)
+    "-" 'dired-jump)
+  (general-def :keymaps 'dired-mode-map :states '(normal motion)
+    "-" 'dired-jump
+    "i" 'wdired-change-to-wdired-mode))
+
+(use-package nerd-icons-dired
+  :hook
+  (dired-mode . nerd-icons-dired-mode))
+#+end_src
+
+WDired make Dired writable, meaning you can do simple text edits to the buffer contents and then commit those edits, which will then result in changes to the filesystem. I've been a big fan of using =oil.nvim= in Neovim, so this is right up my alley.
+
+#+begin_src elisp
+(use-package wdired
+  :ensure nil
+  :custom
+  (wdired-allow-to-change-permissions t))
+#+end_src
+
+** Projects
+Emacs has built-in abilities to understand the context of a project. Let's set things up so it'll remember projects, and add useful binds to our leader key to use the =project.el= functionality.
+
+#+begin_src elisp
+(use-package project
+  :ensure nil
+  :config
+  ;; Remember project when opening ANY file inside it
+  (defun my/project-remember-on-find-file ()
+    (let ((project (project-current nil)))
+      (when project
+        (project-remember-project project))))
+  (add-hook 'find-file-hook #'my/project-remember-on-find-file)
+
+  :general
+  (my/leader-keys
+    "p"   '(:ignore t :wk "project")
+    "p f" '(project-find-file :wk "find file")
+    "p p" '(project-switch-project :wk "switch project")
+    "p d" '(project-dired :wk "project dired")
+    "p b" '(project-switch-to-buffer :wk "project buffer")
+    "p k" '(project-kill-buffers :wk "kill project buffers")))
+#+end_src
+
+** Harpoon
+The quick file switcher from ThePrimeagen, ported over to Emacs.
+
+#+begin_src elisp
+(use-package harpoon
+  :general
+  (my/leader-keys
+    "m" '(:ignore t :wk "harpoon")
+    "m a" '(harpoon-add-file :wk "add file to harpoon")
+    "m m" '(harpoon-quick-menu-hydra :wk "harpoon menu")
+    "m 1" '(harpoon-go-to-1 :wk "harpoon jump to 1")
+    "m 2" '(harpoon-go-to-2 :wk "harpoon jump to 2")
+    "m 3" '(harpoon-go-to-3 :wk "harpoon jump to 3")
+    "m 4" '(harpoon-go-to-4 :wk "harpoon jump to 4")))
+#+end_src
+
+* Windows
+** Navigation
+Evil mode gives us the classic Vim =C-w w= and =C-w hjkl= movements, but I'm lazy and like to reduce it further to just =C-hjkl=.
+
+#+begin_src elisp
+(general-def :keymaps 'override :states '(normal motion)
+  "C-h" 'evil-window-left
+  "C-j" 'evil-window-down
+  "C-k" 'evil-window-up
+  "C-l" 'evil-window-right)
+#+end_src
+
+** =display-buffer-alist=
+#+begin_src elisp
+(setq display-buffer-alist
+      '(
+        ("\\*\\(Help\\|Info\\|Man .*\\)\\*"
+         (display-buffer-in-side-window)
+         (side . right)
+         (window-width . 0.4)
+         (window-parameters . ((no-other-window . t))))
+        ("\\*\\(Completions\\|Messages\\|Warnings\\|Compile-Log\\|xref\\)\\*"
+         (display-buffer-in-side-window)
+         (side . bottom)
+         (window-height . 0.3)
+         (window-parameters . ((no-other-window . t))))
+        ("\\*magit: .*\\*"
+         (display-buffer-same-window))))
+
+(general-def :states '(normal motion)
+  "M-`" 'window-toggle-side-windows)
+#+end_src
+
+** Emacsclient Persistence
+Since I usually intend to keep an emacsclient instance open all of the time, I want to avoid closing the client when I happen to hit =:q= while in a single buffer. This checks if I'm in a single buffer. If not, it closes the split. If so, it close the buffer and moves me to the =*scratch*= buffer, avoiding closing the client.
+
+#+begin_src elisp
+(defun my/safe-evil-quit ()
+  (interactive)
+  (if (one-window-p)
+      (progn
+        (kill-current-buffer)
+        (switch-to-buffer "*scratch*"))
+    (delete-window)))
+
+(with-eval-after-load 'evil
+  (evil-ex-define-cmd "q" #'my/safe-evil-quit)
+  (evil-ex-define-cmd "wq" (lambda ()
+                             (interactive)
+                             (save-buffer)
+                             (my/safe-evil-quit))))
+#+end_src
+
+* Mode Line
+The Emacs mode line is the status bar down at the bottom. It profides important info -- let's make sure it's as useful as possible!
+
+** Search Matches
+When you flip through the matches using the Evil search bindings (=/= and =n=), the number of matches are not shown by default. Let's fix that.
+
+#+begin_src elisp
+(use-package anzu
+  :config
+  (global-anzu-mode 1))
+
+(use-package evil-anzu
+  :after
+  (evil anzu))
+#+end_src
+
+* Minibuffer
+The minibuffer is an integral part of the Emacs experience -- time to enhance it!
+
+** Vertico
+Vertico provide a vertical completion UI, expanding the minibuffer instead of showing completions in a buffer split.
+
+#+begin_src elisp
+(use-package vertico
+  :init
+  (vertico-mode))
+#+end_src
+
+** Savehist
+Let's keep a history of minibuffer activity, could be useful.
+
+#+begin_src elisp
+(use-package savehist
+  :ensure nil
+  :init
+  (savehist-mode))
+#+end_src
+
+** Marginalia
+All of the suggestions/completions in Vertico would be even /more/ useful if they had annotions next to them to describe what they do. Oh wait, we can do that!
+
+#+begin_src elisp
+(use-package marginalia
+  :bind (:map minibuffer-local-map
+              ("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode))
+#+end_src
+
+Oh yeah, and icons too :)
+
+#+begin_src elisp
+(use-package nerd-icons-completion
+  :after marginalia
+  :config
+  (nerd-icons-completion-mode)
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+#+end_src
+
+** Orderless
+What's better than fuzzy searching? Fuzzy searching in any order.
+
+#+begin_src elisp
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles partial-completion))))
+  (completion-category-defaults nil)
+  (completion-pcm-leading-wildcard t))
+#+end_src
+
+** Consult
+Supercharged search and navigation commands with live previews.
+
+#+begin_src elisp
+(use-package consult
+  :general
+  (my/leader-keys
+    "b"   '(:ignore t :wk "buffer")
+    "b b" '(consult-buffer :wk "switch buffer")
+    "f"   '(:ignore t :wk "file")
+    "f r" '(consult-recent-file :wk "recent file")
+    "s"   '(:ignore t :wk "search")
+    "s l" '(consult-line :wk "search in file")
+    "s g" '(consult-ripgrep :wk "search project (ripgrep)")))
+
+(defun my/consult-ripgrep-cword ()
+  "Search project for word under cursor."
+  (interactive)
+  (let ((word (thing-at-point 'symbol)))
+    (consult-ripgrep nil word)))
+
+(my/leader-keys
+  "f w" '(my/consult-ripgrep-cword :wk "grep word under cursor"))
+#+end_src
+
+** Embark
+Emacs can *do* a lot of things, and sometimes it's hard to even know all that it /can/ do. Embark gives a context-sensitve list of the actions that can be performed for a given /thing/.
+
+For example, let's say we do a grep ch across a project to find all occurances of a string: =<leader> s g=. We type in our target string, and now a handy list of the found occurances appears...but what all can we do with that list? Let's use Embark to find out! We can hit =C-.= and now another minibuffer appears with all of the viable options, tailored specifically to this context -- it won't provide options that do not on what we're operating upon. Useful!
+
+#+begin_src elisp
+(use-package embark
+  :ensure t
+  :bind
+  (("C-." . embark-act)
+   ("C-;" . embark-dwim)
+   ("C-h B" . embark-bindings))
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
+  :config
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none))))
+  :general
+  (my/leader-keys
+    "a" '(embark-act :wk "prompt for embark action")))
+
+(use-package embark-consult
+  :ensure t)
+#+end_src
+
+** Affe (Async Fuzzy Finder)
+Asynchronous file finder and grepper using system 'fd' and 'ripgrep' binaries.
+
+#+begin_src elisp
+(use-package affe
+  :straight t
+  :after (vertico orderless consult)
+  :config
+  (defun affe-orderless-regexp-compiler (input _type _ignorecase)
+    (setq input (cdr (orderless-compile input)))
+    (cons input (apply-partially #'orderless--highlight input t)))
+  (setq affe-regexp-compiler #'affe-orderless-regexp-compiler)
+  (consult-customize affe-grep :preview-key "M-.")
+  :general
+  (my/leader-keys
+    "f f" '(affe-find :wk "find file (affe)")
+    "s G" '(affe-grep :wk "live grep entire project (affe)"))
+  :custom
+  (affe-find-command "fd --color=never --type f --hidden --exclude .git"))
+#+end_src
+
+** Quickfix List
+
+Okay, not /really/ the quickfix list from Neovim, but that's how my brain works since that's what I'm used to.
+
+=wgrep= lets us operate on a grep list buffer -- we can modify multiple items in the list and then commit them all at once.
+
+#+begin_src elisp
+(use-package wgrep
+  :custom
+  (wgrep-auto-save-buffer t)
+  (wgrep-change-readonly-file t))
+#+end_src
+
+Add a toggle for grep buffer window, treating it similar to the quickfix list in nvim.
+
+#+begin_src elisp
+(require 'cl-lib)
+
+(defun my/toggle-quickfix ()
+  "Toggle project quickfix buffer."
+  (interactive)
+  (let ((qf-buffer (cl-find-if (lambda (b)
+                                 (with-current-buffer b
+                                   (derived-mode-p 'grep-mode)))
+                               (buffer-list))))
+    (if qf-buffer
+        (let ((win (get-buffer-window qf-buffer)))
+          (if win
+              (delete-window win)
+            (pop-to-buffer qf-buffer)))
+      (message "No quickfix/grep buffer found!"))))
+
+(my/leader-keys
+  "q" '(my/toggle-quickfix :wk "toggle quickfix (grep) buffer"))
+#+end_src
+
+* Text Editing and Programming
+** Corfu & Cape
+Let's have our in-buffer autocompletion menu appear as a popup in the buffer.
+
+#+begin_src elisp
+(use-package corfu
+  :custom
+  (corfu-auto t)
+  (corfu-auto-prefix 2)
+  (corfu-auto-delay 0.0)
+  (corfu-quit-no-match 'separator)
+  (corfu-preselect 'first)
+  :init
+  (global-corfu-mode)
+  (corfu-popupinfo-mode 1)
+  :config
+  (define-key corfu-map (kbd "TAB") nil)
+  (define-key corfu-map (kbd "<tab>") nil)
+  (define-key corfu-map (kbd "RET") nil)
+  (define-key corfu-map (kbd "<return>") nil)
+  (general-def :keymaps 'corfu-map :states 'insert
+    "C-y" 'corfu-insert
+    "C-n" 'corfu-next
+    "C-p" 'corfu-previous
+    "<escape>" 'evil-normal-state))
+#+end_src
+
+Now let's add completion sources, and blend them with with completions from LSPs.
+
+#+begin_src elisp
+(use-package cape
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-history)
+  (add-to-list 'completion-at-point-functions #'cape-keyword)
+  (add-to-list 'completion-at-point-functions #'cape-elisp-block)
+  :config
+  (defun my/eglot-cape-blend ()
+    (setq-local completion-at-point-functions
+                (list (cape-capf-super #'eglot-completion-at-point #'cape-dabbrev #'cape-file))))
+  (add-hook 'eglot-managed-mode-hook #'my/eglot-cape-blend))
+#+end_src
+
+** Treesitter
+Enable Treesitter and prompt to install missing Treesitter languages when needed.
+
+#+begin_src elisp
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+#+end_src
+
+** LSP
+I like me a good LSP. Let's make sure they can attach to buffers and do their thing.
+
+#+begin_src elisp
+(use-package eglot
+  :ensure nil
+  :hook
+  (prog-mode . eglot-ensure)
+  :custom
+  (eglot-autoshutdown t)
+  (eglot-extend-to-xref t)
+  (eglot-events-buffer-size 0)
+  :general
+  (my/leader-keys
+    "c"   '(:ignore t :wk "code")
+    "c a" '(eglot-code-actions :wk "code actions")
+    "c r" '(eglot-rename :wk "rename variable")
+    "c f" '(eglot-format-buffer :wk "format buffer")
+    "c d" '(eldoc-doc-buffer :wk "view documentation")))
+
+(with-eval-after-load 'eglot
+  (general-def :states 'normal :keymaps 'prog-mode-map
+    "g r" 'xref-find-references
+    "g d" 'xref-find-definitions))
+#+end_src
+
+Having hover documentation is incredibly nice! Put the cursor on a /thing/, hit =S-k=, and an in-buffer popup shows info (like a function signature).
+
+#+begin_src elisp
+(use-package eldoc-box
+  :custom
+  (eldoc-box-clear-with-C-g t)
+  :general
+  (general-def :keymaps 'override :states 'normal
+    "K" 'eldoc-box-help-at-point))
+#+end_src
+
+** Diagnostics
+Errors in the buffer(s)? Here is a set of helpers to navigate through them.
+
+#+begin_src elisp
+(use-package flymake
+  :ensure nil
+  :hook
+  (prog-mode . flymake-mode)
+  :custom
+  (flymake-wrap-around t)
+  :general
+  (my/leader-keys
+    "e"   '(:ignore t :wk "errors")
+    "e n" '(flymake-goto-next-error :wk "next error")
+    "e p" '(flymake-goto-prev-error :wk "previous error")
+    "e b" '(flymake-show-buffer-diagnostics :wk "buffer diagnostics")
+    "e P" '(flymake-show-project-diagnostics :wk "project diagnostics")))
+#+end_src
+
+Add a toggle for the diagnostics buffer, treating it similar to the location list in nvim.
+
+#+begin_src elisp
+(defun my/toggle-flymake-diagnostics ()
+  "Toggle flymake diagnostics buffer."
+  (interactive)
+  (let ((win (get-buffer-window (flymake--diagnostics-buffer-name))))
+    (if win
+        (delete-window win)
+      (flymake-show-buffer-diagnostics))))
+
+(my/leader-keys
+  "l" '(my/toggle-flymake-diagnostics :wk "toggle diagnostics buffer"))
+#+end_src
+
+** Surround
+Enable special "surround" motions. For instance, =cs"'= will change surrounding double quotes into single quotes.
+
+#+begin_src elisp
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1))
+#+end_src
+
+** Comments
+Keybinds to easily comment/uncomment lines. =gcc= for a single line (normal mode), =gc= for lines blocks (visual mode).
+
+#+begin_src elisp
+(use-package evil-nerd-commenter
+  :general
+  (general-def :states '(normal visual)
+    "gc" 'evilnc-comment-operator))
+#+end_src
+
+* Utilities
+** Shell =$PATH=
+Have Emacs adopt the =$PATH= from the shell when it starts.
+
+#+begin_src elisp
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x pgtk))
+    (exec-path-from-shell-initialize)))
+#+end_src
+
+** Auto-formatting
+Formatting can not be forgetten when it happens on every save.
+
+#+begin_src elisp
+;; Background formatting on save
+(use-package apheleia
+  :config
+  (apheleia-global-mode +1))
+#+end_src
+
+** Undo Tree
+Visually navigate through undos, walking back and forth and instantly seeing the changes revert and reapply in the buffer. It even tracks divergent forks and lets you step in and out of those branches of the history tree!
+
+#+begin_src elisp
+(use-package vundo
+  :custom
+  (vundo-glyph-alist vundo-unicode-symbols)
+  :general
+  (my/leader-keys
+    "u" '(vundo :wk "undo tree")))
+#+end_src
+
+** Undo History
+If we're going to have an awesome way to visually walk through the tree of undo history, we should persist that history across Emacs sessions!
+
+#+begin_src elisp
+(use-package undo-fu-session
+  :init
+  (undo-fu-session-global-mode)
+  :custom
+  (undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'")))
+#+end_src
+
+* Git
+** Magit
+One of the most cherished and famous modes in Emacs. I generally avoid any wrappers for Git, but Magit is so well done that I actually /want/ to use it.
+
+#+begin_src elisp
+(use-package magit
+  :straight t
+  :after transient
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+  :general
+  (my/leader-keys
+    "g"   '(:ignore t :wk "git")
+    "g g" '(magit-status :wk "magit status")
+    "g l" '(magit-log-all :wk "magit log")
+    "g d" '(magit-diff :wk "magit diff")))
+#+end_src
+
+** Gutter
+Show git info in the line gutter.
+
+#+begin_src elisp
+(use-package diff-hl
+  :config
+  (global-diff-hl-mode)
+  (diff-hl-flydiff-mode)
+  (diff-hl-margin-mode)
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+
+(with-eval-after-load 'diff-hl
+  (general-def :states '(normal motion)
+    "] c" 'diff-hl-next-hunk
+    "[ c" 'diff-hl-previous-hunk))
+#+end_src
+
+** Blame
+Magit can handle blames, but it's cool to have them shown as virtual text.
+
+#+begin_src elisp
+(use-package blamer
+  :straight t
+  :custom
+  (blamer-idle-time 0.3)
+  (blamer-min-offset 20)
+  (blamer-max-commit-message-length 50)
+  :general
+  (my/leader-keys
+    "g b" '(blamer-mode :wk "toggle inline blame")
+    "g i" '(blamer-show-posframe-commit-info :wk "show commit info")))
+#+end_src
+
+* Org Mode
+Org is quite possibly the most popular/famous mode in Emacs. It is used to store and organize information. It is useful for everything from tasks, todos, and agendas to notes that can reference each other and create a broad mind map of data.
+
+** Core
+*** Agenda
+The agenda is one of the two major categories in org. Notes (which mostly represent todos) can be injected into a range of org files and then they can be organized, have deadlines set, show on a calendar, etc.
+
+#+begin_src elisp
+(use-package org
+  :straight nil
+  :hook
+  (org-mode . visual-line-mode)
+  :config
+  (auto-save-visited-mode 1)
+  (setq auto-save-visited-interval 2)
+  (setq auto-save-visited-predicate
+        (lambda ()
+          (and buffer-file-name
+               (string-prefix-p (expand-file-name "~/org/") buffer-file-name))))
+  (with-eval-after-load 'org
+    (general-def :keymaps 'org-mode-map :states '(normal motion)
+      "] h" 'org-next-visible-heading
+      "[ h" 'org-previous-visible-heading
+      "] H" 'org-forward-heading-same-level
+      "[ H" 'org-backward-heading-same-level))
+  (with-eval-after-load 'org-agenda
+    (evil-set-initial-state 'org-agenda-mode 'motion)
+    (evil-define-key 'motion org-agenda-mode-map
+      (kbd "j") 'org-agenda-next-line
+      (kbd "k") 'org-agenda-previous-line
+      (kbd "t") 'org-agenda-todo
+      (kbd "RET") 'org-agenda-switch-to
+      (kbd "q") 'org-agenda-quit))
+  (with-eval-after-load 'evil
+    (with-eval-after-load 'org
+      (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)))
+  :custom
+  (org-directory "~/org")
+  (org-default-notes-file "~/org/agenda.org/inbox.org")
+  (org-agenda-files '("~/org/agenda.org/"))
+  (org-agenda-window-setup 'current-window)
+  (org-agenda-start-on-weekday nil)
+  (org-src-fontify-natively t)
+  (org-src-tab-acts-natively t)
+  (org-edit-src-content-indentation 0)
+  (org-hide-emphasis-markers t)
+  (org-startup-indented t)
+  (org-ellipsis " ▾")
+  (org-pretty-entities t)
+  (org-image-actual-width nil)
+  :general
+  (my/leader-keys
+    "o"   '(:ignore t :wk "org")
+    "o a" '(org-agenda :wk "agenda")
+    "o c" '(org-capture :wk "capture")
+    "o l" '(org-store-link :wk "link")
+    "o i" '(org-insert-link :wk "insert link")))
+#+end_src
+
+One of the workflows while using org agenda is to "refile" tasks into file and headings.
+
+#+begin_src elisp
+(setq org-refile-targets '((org-agenda-files . (:maxlevel . 3)))) ;; refile targets across all agenda files, three headings deep
+(setq org-refile-use-outline-path 'file) ;; show full file path in search and allow refiling to blank file
+(setq org-outline-path-complete-in-steps nil) ;; show all options at once rather than one at a time
+(setq org-refile-allow-creating-parent-nodes 'confirm) ;; ask to create new headings
+(advice-add 'org-refile :after #'org-save-all-org-buffers) ;; save all org buffers after a refile
+#+end_src
+
+*** Roam
+Notes represent the other major area of usage in org, and =org-roam= expands that capability by allowing notes to be linked together.
+
+#+begin_src elisp
+(use-package org-roam
+  :custom
+  (org-roam-directory (file-truename "~/org/notes.org"))
+  (org-roam-db-autosync-mode t)
+
+  :general
+  (my/leader-keys
+    "o n"   '(:ignore t :wk "notes")
+    "o n f" '(org-roam-node-find :wk "find node")
+    "o n i" '(org-roam-node-insert :wk "insert node")))
+#+end_src
+
+** Capture Templates
+Org supports "capture templates", which are predefined templates that make it very easy to capture specific tasks/notes. The goal is to lower the friction to quickly add /something/ into org.
+
+#+begin_src elisp
+(setq org-capture-templates
+      '(("t" "Task / Inbox" entry (file "~/org/agenda.org/inbox.org")
+         "* TODO %?\n  %U" :empty-lines 1)
+
+        ("c" "Scheduled / Deadline" entry (file "~/org/agenda.org/scheduled.org")
+         "* TODO %?\n  SCHEDULED: %^t\n  %U" :empty-lines 1)
+
+        ("w" "Work Stub (Global)" entry (file "~/org/agenda.org/work.org")
+         "* TODO %?\n  %U" :empty-lines 1)
+
+        ("g" "Google Stub (Global)" entry (file "~/org/agenda.org/google.org")
+         "* TODO %?\n  %U" :empty-lines 1)))
+
+(setq org-roam-capture-templates
+      '(("d" "default" plain "%?"
+         :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n\n")
+         :unnarrowed t)))
+
+(add-hook 'org-capture-mode-hook 'evil-insert-state)
+#+end_src
+
+** Org Modern
+Upgrade the look and feel of org files.
+
+#+begin_src elisp
+(use-package org-modern
+  :hook
+  (org-mode . org-modern-mode)
+  (org-agenda-finalize . org-modern-agenda)
+  :custom
+  (org-modern-star '("◉" "○" "◈" "◇" "✳")))
+#+end_src
+
+** TOC
+Handy package that auto-generates a table of contents for an org file simple by applying a =TOC= tag to a header (can be done with =C-c C-q=).
+
+#+begin_src elisp
+(use-package toc-org
+  :hook
+  (org-mode . toc-org-mode))
+#+end_src
+
+** Org Syncing
+My org notes are stored in several repos so they can be synced across devices. To make sure that the sync state stays up-to-date, the following sets up a debounced loop and triggers to pull/commit/push all of the org repos regularly.
+
+#+begin_src elisp
+(global-auto-revert-mode 1)
+(setq auto-revert-verbose nil)
+
+(defvar my/org-sync-timer nil
+  "Timer to debounce Org Git syncs.")
+
+(defun my/execute-org-sync-async ()
+  "Commit and push all Org repos asynchronously."
+  (setq my/org-sync-timer nil)
+  (start-process-shell-command
+   "org-background-sync"
+   nil
+   "for dir in ~/org/agenda.org ~/org/notes.org ~/org/work ~/org/client; do \
+      if [ -d \"$dir\" ]; then \
+        cd \"$dir\" && \
+        if [ -n \"$(git status --porcelain)\" ]; then \
+          git add . && git commit -m 'Auto-sync' && git push origin master; \
+        fi; \
+      fi; \
+    done"))
+
+(defun my/trigger-org-sync-on-save ()
+  "Trigger a debounced sync 3 seconds after an Org file is saved."
+  (when (and buffer-file-name
+             (string-prefix-p (expand-file-name "~/org/") buffer-file-name))
+    (when my/org-sync-timer
+      (cancel-timer my/org-sync-timer))
+    (setq my/org-sync-timer (run-with-idle-timer 3 nil #'my/execute-org-sync-async))))
+
+(add-hook 'after-save-hook #'my/trigger-org-sync-on-save)
+
+(defvar my/last-org-pull-time 0)
+
+(defun my/throttled-org-pull ()
+  "Silently pull all org repos on focus, max once every 3 minutes (180 seconds)."
+  (let ((current-time (float-time)))
+    (when (> (- current-time my/last-org-pull-time) 180)
+      (setq my/last-org-pull-time current-time)
+      (dolist (repo '("~/org/agenda.org/" "~/org/notes.org/" "~/org/work/" "~/org/client/"))
+        (let ((dir (expand-file-name repo)))
+          (when (file-exists-p dir)
+            (let ((default-directory dir))
+              (start-process (concat "git-pull-" (file-name-nondirectory (directory-file-name dir)))
+                             nil "git" "pull" "--rebase" "--autostash" "origin" "master"))))))))
+
+(add-hook 'focus-in-hook #'my/throttled-org-pull)
+#+end_src

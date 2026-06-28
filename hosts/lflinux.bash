@@ -10,6 +10,7 @@ export PACKAGES=(
   chromium
   direnv
   discord
+  emacs
   eza
   fzf
   ghostty
